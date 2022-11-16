@@ -6,13 +6,29 @@ import {
   Button,
   ImageBackground,
 } from "react-native";
-import axios from "axios";
-import { useEffect, useState } from "react";
-export default function Products({ route, navigation }) {
-  console.log(route.params);
 
-  const [user, setUser] = useState({});
+import { useEffect, useState } from "react";
+import { getItems } from "../api/services/products";
+
+import SearchScreen from "./SearchScreen";
+
+export default function Products() {
+  const [searchInput, setSearchInput] = useState("");
   const [error, setError] = useState("");
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    const response = await getItems();
+    // console.log("fetch product", response);
+  };
+
+  const searchProduct = (searchInput) => {
+    console.log("search Product by input", searchInput);
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   if (error !== "") {
     return (
@@ -23,7 +39,13 @@ export default function Products({ route, navigation }) {
   }
   return (
     <View>
-      <Text>Hello products page</Text>
+      <SearchScreen searchProduct={searchProduct} />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapperSearch: {
+    padding: 15,
+  },
+});
