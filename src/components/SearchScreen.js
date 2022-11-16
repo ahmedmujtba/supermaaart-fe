@@ -7,17 +7,16 @@ import {
   ImageBackground,
 } from "react-native";
 
-import { useEffect, useState } from "react";
-import { getItems } from "../api/services/products";
+import { useState } from "react";
 
 import SearchBar from "./SearchBar";
 
 export default function SearcScreen(props) {
-  const [searchInput, setSearchInput] = useState("");
+  const { searchInput, setSearchInput, searchProduct } = props;
 
   const handleSearchFn = () => {
     console.log("search input submitted", searchInput);
-    props.searchProduct(searchInput);
+    searchProduct(searchInput);
   };
 
   return (

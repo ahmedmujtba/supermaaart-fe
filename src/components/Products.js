@@ -39,7 +39,11 @@ export default function Products() {
   }
   return (
     <View>
-      <SearchScreen searchProduct={searchProduct} />
+      <SearchScreen
+        searchProduct={searchProduct}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+      />
     </View>
   );
 }
