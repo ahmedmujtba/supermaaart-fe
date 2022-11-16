@@ -1,24 +1,10 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  ImageBackground,
-} from "react-native";
-import { useState } from "react";
+import { View } from "react-native";
+import MainBanner from "./MainBanner";
 
 export default function Home({ navigation }) {
   return (
     <View>
-      <Text>Home page</Text>
+      <MainBanner navigation={navigation} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: 400,
-    height: 720,
-  },
-});
