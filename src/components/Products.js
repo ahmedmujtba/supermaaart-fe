@@ -15,72 +15,33 @@ import { getProducts } from "../api/services/products";
 
 import SearchScreen from "./SearchScreen";
 
-const apiData = [
-  {
-    name: "Woodcote 6 Medium Free Range British Eggs",
-    description: "6 eggs",
-    price: 1.09,
-    siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
-    pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
-    supermarket: "lidl",
-  },
-  {
-    name: "Butter",
-    description: "6 eggs",
-    price: 1.09,
-    siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
-    pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
-    supermarket: "lidl",
-  },
-  {
-    name: "Cheese",
-    description: "6 eggs",
-    price: 1.09,
-    siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
-    pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
-    supermarket: "lidl",
-  },
-  {
-    name: "Olive oil",
-    description: "6 eggs",
-    price: 1.09,
-    siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
-    pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
-    supermarket: "lidl",
-  },
-];
 export default function Products() {
   const [searchInput, setSearchInput] = useState("");
   const [error, setError] = useState("");
   const [products, setProducts] = useState([]);
+  const [masterProducts, setMasterProducts] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
 
   const fetchProducts = async () => {
     const response = await getProducts();
-    // console.log("fetch product", response);
     setProducts(response);
+    setMasterProducts(response);
   };
 
   const searchProduct = (searchInput) => {
     console.log("search Product by input", searchInput);
-    setProducts(apiData.filter((item) => item.name === searchInput));
+    setProducts(masterProducts.filter((item) => item.name === searchInput));
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    if (searchInput === "") {
+      setProducts(masterProducts);
+    }
+  }, [searchInput]);
 
   if (error !== "") {
     return (
