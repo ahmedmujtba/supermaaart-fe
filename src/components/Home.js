@@ -6,7 +6,7 @@ import {
   Button,
   ImageBackground,
 } from "react-native";
-
+import { Link } from "@react-navigation/native";
 import { useState } from "react";
 
 export default function Home({ navigation }) {
@@ -14,31 +14,28 @@ export default function Home({ navigation }) {
 
   return (
     <View>
-      <ImageBackground
-        source={require("../../assets/bg.jpg")}
-        style={styles.container}
-        blurRadius={4}
-      >
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            value={searchInput}
-            placeholder="enter the keyword"
-            onChangeText={setSearchInput}
+      <View style={styles.searchContainer}>
+        <TextInput
+          style={styles.searchInput}
+          value={searchInput}
+          placeholder="enter the keyword"
+          onChangeText={setSearchInput}
+        />
+        <View style={styles.btn}>
+          <Button
+            title="Search"
+            color="white"
+            onPress={() =>
+              navigation.navigate("Details", {
+                searchInput,
+              })
+            }
           />
-          <View style={styles.btn}>
-            <Button
-              title="Search"
-              color="white"
-              onPress={() =>
-                navigation.navigate("Details", {
-                  searchInput,
-                })
-              }
-            />
-          </View>
         </View>
-      </ImageBackground>
+      </View>
+      <Link to={{ screen: "Products", params: { id: "jane" } }}>
+        All Products
+      </Link>
     </View>
   );
 }
