@@ -5,7 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
-const MyComponent = ({ navigation }) => (
+const MainBanner = ({ navigation }) => (
   <Card
     style={{ display: "flex", justContent: "center", alignItems: "center" }}
   >
@@ -25,4 +25,4 @@ const MyComponent = ({ navigation }) => (
   </Card>
 );
 
-export default MyComponent;
+export default MainBanner;

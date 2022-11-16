@@ -5,7 +5,7 @@ import Groceries from "./Groceries";
 
 const Tab = createBottomTabNavigator();
 
-export default function MyTabs() {
+export default function Navbar() {
   return (
     <Tab.Navigator>
       <Tab.Screen

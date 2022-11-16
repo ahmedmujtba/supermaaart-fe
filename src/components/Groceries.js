@@ -15,5 +15,3 @@ export default function Groceries() {
     </View>
   );
 }
-
-//--legacy-peer-deps

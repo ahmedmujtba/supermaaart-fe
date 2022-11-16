@@ -1,18 +1,10 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  Button,
-  ImageBackground,
-} from "react-native";
-import { Link } from "@react-navigation/native";
-import MyComponent from "./HomeCard";
+import { View } from "react-native";
+import MainBanner from "./MainBanner";
 
 export default function Home({ navigation }) {
   return (
     <View>
-      <MyComponent navigation={navigation} />
+      <MainBanner navigation={navigation} />
     </View>
   );
 }
