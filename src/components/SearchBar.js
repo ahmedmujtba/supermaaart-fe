@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
-import { IC_Search } from "../../assets/Icons";
-
 export default function SearchBar(props) {
   return (
     <View style={{ paddingHorizontal: 20 }}>
@@ -21,12 +19,16 @@ export default function SearchBar(props) {
 const styles = StyleSheet.create({
   wrapperSearch: {
     marginTop: 15,
-    height: 40,
+    height: 50,
     backgroundColor: "#D3D3D3",
     borderRadius: 12,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 15,
+    paddingLeft: 15,
+  },
+  textInputSearch: {
+    height: 50,
+    padding: 10,
   },
 });
