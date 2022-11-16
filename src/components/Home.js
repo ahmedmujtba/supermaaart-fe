@@ -9,8 +9,6 @@ import {
 
 import { useState } from "react";
 
-import CustomMap from "./CustomMap";
-
 export default function Home({ navigation }) {
   const [searchInput, setSearchInput] = useState("");
 
@@ -40,7 +38,6 @@ export default function Home({ navigation }) {
             />
           </View>
         </View>
-        <CustomMap />
       </ImageBackground>
     </View>
   );
