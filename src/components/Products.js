@@ -33,6 +33,9 @@ export default function Products() {
     setProducts(masterProducts.filter((item) => item.name === searchInput));
   };
 
+  const selectedProductFn = (name) => {
+    setSelectedId(name);
+  };
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -63,7 +66,7 @@ export default function Products() {
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.name)}
+        onPress={() => selectedProductFn(item.name)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
