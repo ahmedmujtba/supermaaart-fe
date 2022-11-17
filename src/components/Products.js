@@ -15,7 +15,7 @@ import { getProducts } from "../api/services/products";
 
 import SearchScreen from "./SearchScreen";
 
-export default function Products() {
+export default function Products({ navigation }) {
   const [searchInput, setSearchInput] = useState("");
   const [error, setError] = useState("");
   const [products, setProducts] = useState([]);
@@ -35,6 +35,7 @@ export default function Products() {
 
   const selectedProductFn = (name) => {
     setSelectedId(name);
+    navigation.navigate("Product Details");
   };
   useEffect(() => {
     fetchProducts();
