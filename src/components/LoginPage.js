@@ -131,11 +131,7 @@ export default function LoginPage({ navigation }) {
             </TouchableOpacity>
             <Text
               style={styles.registerTextStyle}
-              onPress={() =>
-                navigation.navigate("RegisterScreen", {
-                  navigation: navigation,
-                })
-              }
+              onPress={() => navigation.navigate("RegisterScreen")}
             >
               New Here ? Register
             </Text>
