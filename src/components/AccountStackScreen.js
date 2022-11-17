@@ -1,7 +1,8 @@
 import { View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Account from "./Account";
-import Testpage2 from "./Testpage2";
+import LoginPage from "./LoginPage";
+import RegisterScreen from "./RegisterScreen";
 
 const AccountStack = createNativeStackNavigator();
 
@@ -14,9 +15,14 @@ export default function AccountStackScreen() {
         options={{ title: "Account" }}
       />
       <AccountStack.Screen
-        name="Testpage2"
-        component={Testpage2}
-        options={{ title: "TestPage2" }}
+        name="LoginPage"
+        component={LoginPage}
+        options={{ title: "Login" }}
+      />
+      <AccountStack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{ title: "Register" }}
       />
     </AccountStack.Navigator>
   );

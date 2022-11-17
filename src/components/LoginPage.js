@@ -12,7 +12,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-export default function LoginPage() {
+export default function LoginPage({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -83,7 +83,7 @@ export default function LoginPage() {
           <KeyboardAvoidingView enabled>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("/home/tomek/northcoders/supermaaart-fe/iconA.png")}
+                source={require("../../assets/iconA.png")}
                 style={{
                   width: "50%",
                   height: 100,
@@ -131,7 +131,11 @@ export default function LoginPage() {
             </TouchableOpacity>
             <Text
               style={styles.registerTextStyle}
-              onPress={() => navigation.navigate("RegisterScreen")}
+              onPress={() =>
+                navigation.navigate("RegisterScreen", {
+                  navigation: navigation,
+                })
+              }
             >
               New Here ? Register
             </Text>

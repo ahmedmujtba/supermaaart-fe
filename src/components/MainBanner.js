@@ -8,8 +8,6 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 const MainBanner = ({ navigation }) => (
   <>
-    <LoginTab navigation={navigation} />
-
     <Card
       style={{
         display: "flex",

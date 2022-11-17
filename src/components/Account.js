@@ -7,7 +7,7 @@ export default function Account({ navigation }) {
         <Button
           title="Sign in"
           onPress={() =>
-            navigation.navigate("Testpage2", { navigation: navigation })
+            navigation.navigate("LoginPage", { navigation: navigation })
           }
         />
       </View>
