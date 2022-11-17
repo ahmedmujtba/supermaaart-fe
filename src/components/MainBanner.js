@@ -7,11 +7,15 @@ const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 
 const MainBanner = ({ navigation }) => (
   <Card
-    style={{ display: "flex", justContent: "center", alignItems: "center" }}
+    style={{
+      display: "flex",
+      justContent: "center",
+      alignItems: "center",
+      marginTop: 150,
+    }}
   >
     <Card.Content>
       <Title>DON'T OVERPAY FOR YOUR GROCERIES!</Title>
-      <Paragraph>Use supermAAART now!</Paragraph>
     </Card.Content>
     <Card.Cover
       source={{
