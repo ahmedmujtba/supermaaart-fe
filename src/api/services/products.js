@@ -4,48 +4,114 @@ const Url = "https://nc-marketplace-api-aa.herokuapp.com";
 
 const apiData = [
   {
-    name: "Woodcote 6 Medium Free Range British Eggs",
-    description: "6 eggs",
-    price: 1.09,
+    name: "Big Loaf",
+    description: "Bread",
+    price: "£3.59",
     siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
     pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "bread",
     supermarket: "lidl",
   },
   {
-    name: "Butter",
-    description: "6 eggs",
-    price: 1.09,
+    name: "Medium Loaf",
+    description: "Not so good",
+    price: "£2.59",
     siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
     pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "bread",
     supermarket: "lidl",
   },
   {
-    name: "Cheese",
-    description: "6 eggs",
-    price: 1.09,
+    name: "Bready",
+    description: "The Bready",
+    price: "£0.59",
     siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
     pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
+    supermarket: "aldi",
+  },
+  {
+    name: "Toughbread",
+    description: "Tough",
+    price: "£0.90",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "bread",
+    supermarket: "homebargains",
+  },
+  {
+    name: "Softbread",
+    description: "Silky",
+    price: "£4.90",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "bread",
+    supermarket: "aldi",
+  },
+  {
+    name: "Toilet Roll",
+    description: "The Best",
+    price: "£2.59",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
     supermarket: "lidl",
   },
   {
-    name: "Olive oil",
-    description: "6 eggs",
-    price: 1.09,
+    name: "Standard Toilet Roll",
+    description: "Not so good",
+    price: "£4.59",
     siteLink:
-      "https://www.lidl.co.uk/p/eggs/woodcote-6-medium-free-range-british-eggs/p6726",
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
     pictureLink:
-      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/01309/xs/01309_66.jpg",
-    category: "eggs",
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
     supermarket: "lidl",
+  },
+  {
+    name: "Lousy Toilet Roll",
+    description: "The Worst",
+    price: "£0.59",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
+    supermarket: "lidl",
+  },
+  {
+    name: "Sandpaper",
+    description: "Rough",
+    price: "£0.90",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
+    supermarket: "homebargains",
+  },
+  {
+    name: "Soft Paper",
+    description: "Silky",
+    price: "£4.90",
+    siteLink:
+      "https://www.lidl.co.uk//p/floralys/floralys-paper-handkerchiefs/p976",
+    pictureLink:
+      "https://uk.cat-ret.assets.lidl/catalog5media/uk/article/126479/xs/126479_31.jpg",
+    category: "toiletroll",
+    supermarket: "homebargains",
   },
 ];
 export function getProducts() {

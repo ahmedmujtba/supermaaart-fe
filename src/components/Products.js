@@ -87,7 +87,7 @@ export default function Products({ navigation }) {
         <FlatList
           data={products}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.name}
           extraData={selectedId}
         />
       </SafeAreaView>
