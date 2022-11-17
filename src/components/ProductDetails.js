@@ -3,7 +3,8 @@ export default function ProductDetails({ route, navigation }) {
   const { itemName } = route.params;
   return (
     <View>
-      <Text>Product details page-{itemName}</Text>
+      <Text>Product details page</Text>
+      <Text>{itemName}</Text>
     </View>
   );
 }
