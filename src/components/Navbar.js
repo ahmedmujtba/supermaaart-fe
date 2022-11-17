@@ -22,7 +22,7 @@ export default function Navbar() {
         name="Products"
         component={ProductStackScreen}
         options={{
-          title: "SupermAAART",
+          title: "Products",
           tabBarIcon: ({ color, size }) => (
             <Icon name="shopping-basket" color="#900" size={35} />
           ),
@@ -32,7 +32,7 @@ export default function Navbar() {
         name="Supermarkets"
         component={Home}
         options={{
-          title: "SupermAAART",
+          title: "Cart",
           tabBarIcon: ({ color, size }) => (
             <Icon name="shopping-cart" color="#900" size={35} />
           ),
@@ -42,7 +42,7 @@ export default function Navbar() {
         name="Shopping List"
         component={Home}
         options={{
-          title: "SupermAAART",
+          title: "List",
           tabBarIcon: ({ color, size }) => (
             <Icon name="list" color="#900" size={35} />
           ),

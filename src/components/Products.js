@@ -35,7 +35,9 @@ export default function Products({ navigation }) {
 
   const selectedProductFn = (name) => {
     setSelectedId(name);
-    navigation.navigate("Product Details");
+    navigation.navigate("Product Details", {
+      itemName: name,
+    });
   };
   useEffect(() => {
     fetchProducts();
