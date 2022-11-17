@@ -96,14 +96,16 @@ export default function Products({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  wrapperSearch: {
-    padding: 15,
+  container: {
+    marginBottom: 150,
   },
   item: {
+    flex: 1,
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
     borderRadius: 10,
+    marginBottom: 10,
   },
   title: {
     fontSize: 32,
