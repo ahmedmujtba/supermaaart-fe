@@ -5,10 +5,8 @@ import Navbar from "./src/components/Navbar";
 
 export default function App() {
   return (
-    <>
-      <NavigationContainer>
-        <Navbar />
-      </NavigationContainer>
-    </>
+    <NavigationContainer>
+      <Navbar />
+    </NavigationContainer>
   );
 }
