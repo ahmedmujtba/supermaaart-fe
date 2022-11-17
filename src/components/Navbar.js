@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProductStackScreen from "./ProductStackScreen";
+import AccountStackScreen from "./AccountStackScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,20 +36,20 @@ export default function Navbar() {
         component={Home}
         options={{
           title: "SupermAAART",
-          tabBarLabel: "Cart",
+          tabBarLabel: "Favourites",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="shopping-cart" color="#3b5998" size={35} />
+            <Icon name="heart" color="#3b5998" size={35} />
           ),
         }}
       />
       <Tab.Screen
-        name="Shopping List"
-        component={Home}
+        name="Account"
+        component={AccountStackScreen}
         options={{
           title: "SupermAAART",
-          tabBarLabel: "List",
+          tabBarLabel: "Account",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="list" color="#3b5998" size={35} />
+            <Icon name="user" color="#3b5998" size={35} />
           ),
         }}
       />
