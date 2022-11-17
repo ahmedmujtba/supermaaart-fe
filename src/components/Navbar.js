@@ -43,7 +43,7 @@ export default function Navbar() {
         }}
       />
       <Tab.Screen
-        name="Account"
+        name="AccountStackScreen"
         component={AccountStackScreen}
         options={{
           title: "SupermAAART",
