@@ -36,14 +36,7 @@ const RegisterScreen = (props) => {
       alert("Please fill Email");
       return;
     }
-    if (!userAge) {
-      alert("Please fill Age");
-      return;
-    }
-    if (!userAddress) {
-      alert("Please fill Address");
-      return;
-    }
+
     if (!userPassword) {
       alert("Please fill Password");
       return;
@@ -102,7 +95,7 @@ const RegisterScreen = (props) => {
         }}
       >
         <Image
-          source={require("/home/tomek/northcoders/supermaaart-fe/iconA.png")}
+          source={require("../../assets/iconA.png")}
           style={{
             height: 150,
             resizeMode: "contain",
@@ -131,7 +124,7 @@ const RegisterScreen = (props) => {
       >
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("/home/tomek/northcoders/supermaaart-fe/iconA.png")}
+            source={require("../../assets/iconA.png")}
             style={{
               width: "50%",
               height: 100,
@@ -188,36 +181,7 @@ const RegisterScreen = (props) => {
               blurOnSubmit={false}
             />
           </View>
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              onChangeText={(UserAge) => setUserAge(UserAge)}
-              underlineColorAndroid="#f000"
-              placeholder="Enter Age"
-              placeholderTextColor="#8b9cb5"
-              keyboardType="numeric"
-              ref={ageInputRef}
-              returnKeyType="next"
-              onSubmitEditing={() =>
-                addressInputRef.current && addressInputRef.current.focus()
-              }
-              blurOnSubmit={false}
-            />
-          </View>
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              onChangeText={(UserAddress) => setUserAddress(UserAddress)}
-              underlineColorAndroid="#f000"
-              placeholder="Enter Address"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="sentences"
-              ref={addressInputRef}
-              returnKeyType="next"
-              onSubmitEditing={Keyboard.dismiss}
-              blurOnSubmit={false}
-            />
-          </View>
+
           {errortext != "" ? (
             <Text style={styles.errorTextStyle}>{errortext}</Text>
           ) : null}
