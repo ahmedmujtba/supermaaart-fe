@@ -2,7 +2,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./Home";
 import Icon from "react-native-vector-icons/FontAwesome";
 import ProductStackScreen from "./ProductStackScreen";
-import Groceries from "./Groceries";
 import LoginPage from "./LoginPage";
 import RegisterScreen from "./RegisterScreen";
 import AccountStackScreen from "./AccountStackScreen";
@@ -24,7 +23,7 @@ export default function Navbar() {
         }}
       />
       <Tab.Screen
-        name="Products"
+        name="ProductStackScreen"
         component={ProductStackScreen}
         options={{
           title: "SupermAAART",
