@@ -14,7 +14,7 @@ export default function Navbar() {
         options={{
           title: "SupermAAART",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color="#900" size={35} />
+            <Icon name="home" color="#3b5998" size={35} />
           ),
         }}
       />
@@ -24,7 +24,7 @@ export default function Navbar() {
         options={{
           title: "Products",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="shopping-basket" color="#900" size={35} />
+            <Icon name="shopping-basket" color="#3b5998" size={35} />
           ),
         }}
       />
@@ -34,7 +34,7 @@ export default function Navbar() {
         options={{
           title: "Cart",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="shopping-cart" color="#900" size={35} />
+            <Icon name="shopping-cart" color="#3b5998" size={35} />
           ),
         }}
       />
@@ -44,7 +44,7 @@ export default function Navbar() {
         options={{
           title: "List",
           tabBarIcon: ({ color, size }) => (
-            <Icon name="list" color="#900" size={35} />
+            <Icon name="list" color="#3b5998" size={35} />
           ),
         }}
       />
