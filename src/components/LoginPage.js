@@ -15,7 +15,6 @@ import {
 export default function LoginPage({ navigation }) {
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState("");
 
   const handleSubmitPress = () => {
@@ -28,29 +27,26 @@ export default function LoginPage({ navigation }) {
       alert("Please fill Password");
       return;
     }
-    setLoading(true);
     let dataToSend = { email: userEmail, password: userPassword };
     console.log(dataToSend);
     let formBody = [];
     for (let key in dataToSend) {
-      let encodedKey = encodeURIComponent(key);
-      let encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + "=" + encodedValue);
+      let Key = key;
+      let Value = dataToSend[key];
+      formBody.push(Key + "=" + Value);
     }
     formBody = formBody.join("&");
+    console.log(formBody);
 
     fetch("https://jsonplaceholder.typicode.com/users", {
       method: "POST",
       body: formBody,
       headers: {
-        //Header Defination
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
       },
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        //Hide Loader
-        setLoading(false);
         console.log(responseJson);
         // If server response message same as Data Matched
         if (responseJson.status === "success") {
@@ -63,8 +59,6 @@ export default function LoginPage({ navigation }) {
         }
       })
       .catch((error) => {
-        //Hide Loader
-        setLoading(false);
         console.error(error);
       });
   };
@@ -72,7 +66,7 @@ export default function LoginPage({ navigation }) {
   return (
     <View style={styles.mainBody}>
       <ScrollView
-        keyboardShouldPersistTaps="handled"
+        keyboardShouldPersistTaps="never"
         contentContainerStyle={{
           flex: 1,
           justifyContent: "center",
@@ -98,11 +92,7 @@ export default function LoginPage({ navigation }) {
                 onChangeText={(UserEmail) => setUserEmail(UserEmail)}
                 placeholder="Enter Email" //dummy@abc.com
                 placeholderTextColor="#8b9cb5"
-                autoCapitalize="none"
-                keyboardType="email-address"
-                returnKeyType="next"
                 underlineColorAndroid="#f000"
-                blurOnSubmit={false}
               />
             </View>
             <View style={styles.SectionStyle}>
@@ -112,8 +102,6 @@ export default function LoginPage({ navigation }) {
                 placeholder="Enter Password" //12345
                 placeholderTextColor="#8b9cb5"
                 keyboardType="default"
-                onSubmitEditing={Keyboard.dismiss}
-                blurOnSubmit={false}
                 secureTextEntry={true}
                 underlineColorAndroid="#f000"
                 returnKeyType="next"
@@ -133,7 +121,7 @@ export default function LoginPage({ navigation }) {
               style={styles.registerTextStyle}
               onPress={() => navigation.navigate("RegisterScreen")}
             >
-              New Here ? Register
+              New Here? Register
             </Text>
           </KeyboardAvoidingView>
         </View>
