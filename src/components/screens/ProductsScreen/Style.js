@@ -19,4 +19,8 @@ export const styles = StyleSheet.create({
     width: 96,
     height: 108,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });

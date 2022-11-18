@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from "react-native";
 
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ export default function Products({ navigation }) {
   const [products, setProducts] = useState([]);
   const [masterProducts, setMasterProducts] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const fetchProducts = async () => {
     const response = await getProducts();
@@ -28,8 +30,10 @@ export default function Products({ navigation }) {
     if (response.status === 200) {
       setProducts(response.data);
       setMasterProducts(response.data);
+      setLoading(false);
     } else {
       setError(response.data);
+      setLoading(false);
     }
   };
 
@@ -49,6 +53,7 @@ export default function Products({ navigation }) {
     });
   };
   useEffect(() => {
+    setLoading(true);
     fetchProducts();
   }, []);
 
@@ -58,6 +63,13 @@ export default function Products({ navigation }) {
     }
   }, [searchInput]);
 
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   if (error !== "") {
     return (
       <View>
