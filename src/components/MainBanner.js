@@ -1,8 +1,5 @@
 import * as React from "react";
 import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
-import Products from "./Products";
-import { NavigationContainer } from "@react-navigation/native";
-import LoginTab from "./LoginTab";
 
 const LeftContent = (props) => <Avatar.Icon {...props} icon="folder" />;
 

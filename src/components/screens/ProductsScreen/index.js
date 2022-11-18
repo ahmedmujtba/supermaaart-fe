@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -11,9 +10,10 @@ import {
 } from "react-native";
 
 import { useEffect, useState } from "react";
-import { getProducts } from "../api/services/products";
-
-import SearchScreen from "./SearchScreen";
+import { getProducts } from "../../../api/services/products";
+import SearchScreen from "../../SearchScreen";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { styles } from "./Style";
 
 export default function Products({ navigation }) {
   const [searchInput, setSearchInput] = useState("");
@@ -57,10 +57,15 @@ export default function Products({ navigation }) {
     );
   }
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
-    <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-      <Text style={[styles.title, textColor]}>{item.name}</Text>
-      <Image source={{ uri: item.pictureLink }} style={styles.logo} />
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.item, backgroundColor]}
+      >
+        <Text style={[styles.title, textColor]}>{item.name}</Text>
+        <Image source={{ uri: item.pictureLink }} style={styles.logo} />
+      </TouchableOpacity>
+    </View>
   );
   const renderItem = ({ item }) => {
     const backgroundColor = item.name === selectedId ? "#DBE6FA" : "white";
@@ -94,24 +99,3 @@ export default function Products({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 150,
-  },
-  item: {
-    flex: 1,
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  title: {
-    fontSize: 32,
-  },
-  logo: {
-    width: 66,
-    height: 58,
-  },
-});
