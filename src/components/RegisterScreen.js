@@ -14,17 +14,9 @@ import {
 const RegisterScreen = (props) => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const [userAge, setUserAge] = useState("");
-  const [userAddress, setUserAddress] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState("");
   const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
-
-  const emailInputRef = createRef();
-  const ageInputRef = createRef();
-  const addressInputRef = createRef();
-  const passwordInputRef = createRef();
 
   const handleSubmitButton = () => {
     setErrortext("");
@@ -41,26 +33,24 @@ const RegisterScreen = (props) => {
       alert("Please fill Password");
       return;
     }
-    //Show Loader
-    setLoading(true);
-    var dataToSend = {
+    let dataToSend = {
       name: userName,
       email: userEmail,
-      age: userAge,
-      address: userAddress,
       password: userPassword,
     };
-    var formBody = [];
-    for (var key in dataToSend) {
-      var encodedKey = encodeURIComponent(key);
-      var encodedValue = encodeURIComponent(dataToSend[key]);
-      formBody.push(encodedKey + "=" + encodedValue);
+    console.log(dataToSend);
+    let formBody = [];
+    for (let key in dataToSend) {
+      let Key = key;
+      let value = dataToSend[key];
+      formBody.push(Key + "=" + value);
     }
     formBody = formBody.join("&");
+    console.log(formBody);
 
-    fetch("http://localhost:3000/api/user/register", {
+    fetch("https://207lw.mocklab.io/json", {
       method: "POST",
-      body: formBody,
+      body: dataToSend,
       headers: {
         //Header Defination
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -68,8 +58,6 @@ const RegisterScreen = (props) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        //Hide Loader
-        setLoading(false);
         console.log(responseJson);
         // If server response message same as Data Matched
         if (responseJson.status === "success") {
@@ -81,7 +69,6 @@ const RegisterScreen = (props) => {
       })
       .catch((error) => {
         //Hide Loader
-        setLoading(false);
         console.error(error);
       });
   };
@@ -143,9 +130,6 @@ const RegisterScreen = (props) => {
               placeholderTextColor="#8b9cb5"
               autoCapitalize="sentences"
               returnKeyType="next"
-              onSubmitEditing={() =>
-                emailInputRef.current && emailInputRef.current.focus()
-              }
               blurOnSubmit={false}
             />
           </View>
@@ -157,11 +141,7 @@ const RegisterScreen = (props) => {
               placeholder="Enter Email"
               placeholderTextColor="#8b9cb5"
               keyboardType="email-address"
-              ref={emailInputRef}
               returnKeyType="next"
-              onSubmitEditing={() =>
-                passwordInputRef.current && passwordInputRef.current.focus()
-              }
               blurOnSubmit={false}
             />
           </View>
@@ -172,12 +152,8 @@ const RegisterScreen = (props) => {
               underlineColorAndroid="#f000"
               placeholder="Enter Password"
               placeholderTextColor="#8b9cb5"
-              ref={passwordInputRef}
               returnKeyType="next"
               secureTextEntry={true}
-              onSubmitEditing={() =>
-                ageInputRef.current && ageInputRef.current.focus()
-              }
               blurOnSubmit={false}
             />
           </View>
@@ -228,7 +204,7 @@ const styles = StyleSheet.create({
   },
   inputStyle: {
     flex: 1,
-    color: "white",
+    color: "black",
     paddingLeft: 15,
     paddingRight: 15,
     borderWidth: 1,

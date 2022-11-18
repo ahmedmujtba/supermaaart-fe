@@ -35,7 +35,7 @@ export default function Navbar() {
       />
       <Tab.Screen
         name="Supermarkets"
-        component={LoginPage}
+        component={RegisterScreen}
         options={{
           title: "SupermAAART",
           tabBarLabel: "Favourites",
