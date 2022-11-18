@@ -24,13 +24,22 @@ export default function Products({ navigation }) {
 
   const fetchProducts = async () => {
     const response = await getProducts();
-    setProducts(response);
-    setMasterProducts(response);
+    console.log("fetch products", response);
+    if (response.status === 200) {
+      setProducts(response.data);
+      setMasterProducts(response.data);
+    } else {
+      setError(response.data);
+    }
   };
 
   const searchProduct = (searchInput) => {
     console.log("search Product by input", searchInput);
-    setProducts(masterProducts.filter((item) => item.name === searchInput));
+    setProducts(
+      masterProducts.filter((item) =>
+        item.name.toLowerCase().includes(searchInput.toLowerCase())
+      )
+    );
   };
 
   const selectedProductFn = (name) => {
@@ -63,6 +72,9 @@ export default function Products({ navigation }) {
         style={[styles.item, backgroundColor]}
       >
         <Text style={[styles.title, textColor]}>{item.name}</Text>
+        <Text style={[styles.title, textColor]}>{item.description}</Text>
+        <Text style={[styles.title, textColor]}>{item.price}</Text>
+        <Text style={[styles.title, textColor]}>{item.supermarket}</Text>
         <Image source={{ uri: item.pictureLink }} style={styles.logo} />
       </TouchableOpacity>
     </View>
