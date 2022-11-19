@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
-  ScrollView,
 } from "react-native";
 
 import { useEffect, useState } from "react";
@@ -26,6 +25,7 @@ export default function Products({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [showMoreCount, setShowMoreCount] = useState(10);
 
+  //Render logic
   const fetchProducts = async () => {
     const response = await getProducts();
     if (response.status === 200) {
@@ -48,10 +48,11 @@ export default function Products({ navigation }) {
     );
   };
 
-  const selectedProductFn = (name) => {
+  const selectedProductFn = (name, id) => {
     setSelectedId(name);
     navigation.navigate("Product Details", {
       itemName: name,
+      itemId: id,
     });
   };
 
@@ -121,7 +122,7 @@ export default function Products({ navigation }) {
     return (
       <Item
         item={item}
-        onPress={() => selectedProductFn(item.name)}
+        onPress={() => selectedProductFn(item.name, item._id)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />

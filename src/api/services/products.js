@@ -11,5 +11,15 @@ export async function getProducts() {
     console.log("catch error--", err);
     return err;
   }
- 
+}
+
+export async function getProductDetails(id) {
+  try {
+    const response = await axios.get(`${Url}/api/products/${id}`);
+    console.log("response", response.status);
+    return response;
+  } catch (err) {
+    console.log("catch error--", err);
+    return err;
+  }
 }
