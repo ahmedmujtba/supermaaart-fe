@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  ScrollView,
 } from "react-native";
 
 import { useEffect, useState } from "react";
@@ -23,12 +24,13 @@ export default function Products({ navigation }) {
   const [masterProducts, setMasterProducts] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showMoreCount, setShowMoreCount] = useState(10);
 
   const fetchProducts = async () => {
     const response = await getProducts();
-    console.log("fetch products", response);
     if (response.status === 200) {
-      setProducts(response.data);
+      const showNProducts = response.data.slice(0, showMoreCount);
+      setProducts(showNProducts);
       setMasterProducts(response.data);
       setLoading(false);
     } else {
@@ -52,6 +54,14 @@ export default function Products({ navigation }) {
       itemName: name,
     });
   };
+
+  const showMoreFn = () => {
+    console.log("show more fn");
+    const showNProducts = masterProducts.slice(0, showMoreCount + 10);
+    setProducts(showNProducts);
+    setShowMoreCount((prevCount) => prevCount + 10);
+  };
+
   useEffect(() => {
     setLoading(true);
     fetchProducts();
@@ -62,6 +72,8 @@ export default function Products({ navigation }) {
       setProducts(masterProducts);
     }
   }, [searchInput]);
+
+  //Render views
 
   if (loading) {
     return (
@@ -77,6 +89,17 @@ export default function Products({ navigation }) {
       </View>
     );
   }
+  const ShowMore = () => {
+    return (
+      <View>
+        {products.length === masterProducts.length ? (
+          <Text>All the products covered</Text>
+        ) : (
+          <Button title="Show more" onPress={showMoreFn} />
+        )}
+      </View>
+    );
+  };
   const Item = ({ item, onPress, backgroundColor, textColor }) => (
     <View>
       <TouchableOpacity
@@ -118,6 +141,8 @@ export default function Products({ navigation }) {
           renderItem={renderItem}
           keyExtractor={(item) => item.name}
           extraData={selectedId}
+          ListFooterComponent={ShowMore}
+          ListFooterComponentStyle={styles.showMoreBtn}
         />
       </SafeAreaView>
     </View>
