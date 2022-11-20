@@ -10,7 +10,12 @@ const Tab = createBottomTabNavigator();
 
 export default function Navbar() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={() => ({
+        tabBarActiveTintColor: "#0B3FF2",
+        tabBarInactiveTintColor: "gray",
+      })}
+    >
       <Tab.Screen
         name="Home"
         component={Home}
