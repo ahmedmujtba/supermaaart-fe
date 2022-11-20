@@ -29,7 +29,7 @@ export default function ProductDetails({ route, navigation }) {
   const checkSignedUser = async () => {
     try {
       const userName = await AsyncStorage.getItem("username");
-      if (user != null) {
+      if (userName != null) {
         setSignedUser(userName);
       }
     } catch (err) {
@@ -40,7 +40,6 @@ export default function ProductDetails({ route, navigation }) {
   const addItemtoList = () => {
     console.log("add item to the list");
     if (signedUser === "") {
-      // setModalVisible(true);
       navigation.navigate("LoginPage");
     }
     console.log("add to list");
