@@ -9,15 +9,15 @@ export const styles = StyleSheet.create({
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 10,
+    borderRadius: 5,
     marginBottom: 10,
   },
   title: {
     fontSize: 15,
   },
   logo: {
-    width: 96,
-    height: 108,
+    width: 100,
+    height: 100,
   },
   loadingContainer: {
     flex: 1,

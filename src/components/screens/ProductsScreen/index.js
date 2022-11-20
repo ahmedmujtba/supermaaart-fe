@@ -107,11 +107,20 @@ export default function Products({ navigation }) {
         onPress={onPress}
         style={[styles.item, backgroundColor]}
       >
-        <Text style={[styles.title, textColor]}>{item.name}</Text>
-        <Text style={[styles.title, textColor]}>{item.description}</Text>
-        <Text style={[styles.title, textColor]}>{item.price}</Text>
-        <Text style={[styles.title, textColor]}>{item.supermarket}</Text>
         <Image source={{ uri: item.pictureLink }} style={styles.logo} />
+        <Text style={[styles.title, textColor]}>{item.name}</Text>
+        {/* <Text style={[styles.title, textColor]}>{item.description}</Text> */}
+        <Text
+          style={[
+            styles.title,
+            textColor,
+            { textTransform: "capitalize" },
+            { fontWeight: "bold" },
+          ]}
+        >
+          {item.supermarket}
+        </Text>
+        <Text style={[styles.title, textColor]}>£{item.price}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -140,7 +149,7 @@ export default function Products({ navigation }) {
         <FlatList
           data={products}
           renderItem={renderItem}
-          keyExtractor={(item) => item.name}
+          keyExtractor={(item) => item._id}
           extraData={selectedId}
           ListFooterComponent={ShowMore}
           ListFooterComponentStyle={styles.showMoreBtn}
