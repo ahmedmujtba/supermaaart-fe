@@ -58,11 +58,6 @@ export default function ProductDetails({ route, navigation }) {
       <Text>{product.price}</Text>
       <Text>{product.supermarket}</Text>
       <Button title="Add" onPress={addItemtoList} />
-      <ModalScreen
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-        modalType="loginscreen"
-      />
     </View>
   );
 }
