@@ -109,7 +109,7 @@ export default function Products({ navigation }) {
       >
         <View style={styles.itemContainer}>
           <View style={styles.imgContainer}>
-            <Image source={{ uri: item.pictureLink }} style={styles.logo} />
+            <Image source={{ uri: item.pictureLink }} style={styles.itemImg} />
           </View>
           <View style={styles.itemTextContainer}>
             <View style={styles.itemNameText}>
@@ -138,8 +138,8 @@ export default function Products({ navigation }) {
     </View>
   );
   const renderItem = ({ item }) => {
-    const backgroundColor = item.name === selectedId ? "#DBE6FA" : "white";
-    const color = item.id === selectedId ? "white" : "black";
+    const backgroundColor = item.name === selectedId ? "#f3f4fa" : "white";
+    const color = item.id === selectedId ? "white" : "#243578";
 
     return (
       <Item

@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: 15,
   },
-  logo: {
+  itemImg: {
     width: 100,
     height: 100,
   },
