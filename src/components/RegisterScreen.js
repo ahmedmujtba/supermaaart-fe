@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import { postRegisterUser } from "../api/services/users";
 
 const RegisterScreen = (props) => {
   const [fullName, setFullName] = useState("");
@@ -40,29 +41,22 @@ const RegisterScreen = (props) => {
       return;
     }
 
-    let response;
-    try {
-      response = await axios.post(
-        "https://ivory-seagull-coat.cyclic.app/api/users/register",
-        {
-          name: fullName,
-          username: userName,
-          email: userEmail,
-          password: userPassword,
-        }
-      );
-      console.log("response for register", response.data);
-      if (response.status === 201) {
-        console.log("success registered");
-        setIsRegistraionSuccess(true);
-      } else {
-        setErrortext(response.data);
-      }
-    } catch (err) {
-      console.log("user registration error", err);
-      setErrortext(err);
+    const response = await postRegisterUser({
+      name: fullName,
+      username: userName,
+      email: userEmail,
+      password: userPassword,
+    });
+
+    console.log("response for register", response.data);
+    if (response.status === 201) {
+      console.log("success registered");
+      setIsRegistraionSuccess(true);
+    } else {
+      setErrortext(response.data);
     }
   };
+
   if (isRegistraionSuccess) {
     return (
       <View
