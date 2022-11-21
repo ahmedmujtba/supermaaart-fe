@@ -48,7 +48,7 @@ const RegisterScreen = (props) => {
     formBody = formBody.join("&");
     console.log(formBody);
 
-    fetch("https://207lw.mocklab.io/json", {
+    fetch("https://nc-marketplace-api-aa.herokuapp.com/api/categories", {
       method: "POST",
       body: dataToSend,
       headers: {
@@ -58,7 +58,7 @@ const RegisterScreen = (props) => {
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson);
+        console.log(responseJson, "response");
         // If server response message same as Data Matched
         if (responseJson.status === "success") {
           setIsRegistraionSuccess(true);
