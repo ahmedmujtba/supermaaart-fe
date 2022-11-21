@@ -10,58 +10,46 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
-import axios from "axios";
+
+import { loginUser } from "../api/services/users";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginPage({ navigation }) {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [username, setUserName] = useState("");
+  const [password, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
 
-  const handleSubmitPress = () => {
+  const showAlert = () =>
+    Alert.alert("Login", "Login Successful", [
+      {
+        text: "OK",
+        onPress: () => navigation.navigate("Home"),
+      },
+    ]);
+
+  const handleSubmitPress = async () => {
     setErrortext("");
-    if (!userEmail) {
-      alert("Please fill Email");
+    if (!username) {
+      alert("Please fill user name");
       return;
     }
-    if (!userPassword) {
+    if (!password) {
       alert("Please fill Password");
       return;
     }
-    let dataToSend = { email: userEmail, password: userPassword };
-    console.log(dataToSend);
-    let formBody = [];
-    for (let key in dataToSend) {
-      let Key = key;
-      let Value = dataToSend[key];
-      formBody.push(Key + "=" + Value);
-    }
-    formBody = formBody.join("&");
-    console.log(formBody);
 
-    fetch("https://jsonplaceholder.typicode.com/users", {
-      method: "POST",
-      body: formBody,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status === "success") {
-          AsyncStorage.setItem("user_id", responseJson.data.email);
-          console.log(responseJson.data.email);
-          navigation.replace("DrawerNavigationRoutes");
-        } else {
-          setErrortext(responseJson.msg);
-          console.log("Please check your email id or password");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const response = await loginUser({ username, password });
+
+    if (response.status === 200) {
+      console.log("response", response.data);
+      AsyncStorage.setItem("username", response.data.username);
+      showAlert();
+    } else {
+      setErrortext(response.data);
+      console.log("Please check your email id or password");
+    }
   };
 
   return (
@@ -90,8 +78,8 @@ export default function LoginPage({ navigation }) {
             <View style={styles.SectionStyle}>
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                placeholder="Enter Email" //dummy@abc.com
+                onChangeText={(username) => setUserName(username)}
+                placeholder="Enter user name"
                 placeholderTextColor="#8b9cb5"
                 underlineColorAndroid="#f000"
               />
@@ -100,7 +88,7 @@ export default function LoginPage({ navigation }) {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={(UserPassword) => setUserPassword(UserPassword)}
-                placeholder="Enter Password" //12345
+                placeholder="Enter Password"
                 placeholderTextColor="#8b9cb5"
                 keyboardType="default"
                 secureTextEntry={true}
