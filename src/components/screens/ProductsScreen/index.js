@@ -107,20 +107,33 @@ export default function Products({ navigation }) {
         onPress={onPress}
         style={[styles.item, backgroundColor]}
       >
-        <Image source={{ uri: item.pictureLink }} style={styles.logo} />
-        <Text style={[styles.title, textColor]}>{item.name}</Text>
-        {/* <Text style={[styles.title, textColor]}>{item.description}</Text> */}
-        <Text
-          style={[
-            styles.title,
-            textColor,
-            { textTransform: "capitalize" },
-            { fontWeight: "bold" },
-          ]}
-        >
-          {item.supermarket}
-        </Text>
-        <Text style={[styles.title, textColor]}>£{item.price}</Text>
+        <View style={styles.itemContainer}>
+          <View style={styles.imgContainer}>
+            <Image source={{ uri: item.pictureLink }} style={styles.logo} />
+          </View>
+          <View style={styles.itemTextContainer}>
+            <View style={styles.itemNameText}>
+              <Text
+                style={[styles.title, textColor, { flex: 1, flexWrap: "wrap" }]}
+              >
+                {item.name}
+              </Text>
+            </View>
+
+            {/* <Text style={[styles.title, textColor]}>{item.description}</Text> */}
+            <Text
+              style={[
+                styles.title,
+                textColor,
+                { textTransform: "capitalize" },
+                { fontWeight: "bold" },
+              ]}
+            >
+              {item.supermarket}
+            </Text>
+            <Text style={[styles.title, textColor]}>£{item.price}</Text>
+          </View>
+        </View>
       </TouchableOpacity>
     </View>
   );

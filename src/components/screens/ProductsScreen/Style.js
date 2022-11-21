@@ -4,12 +4,25 @@ export const styles = StyleSheet.create({
   container: {
     marginBottom: 150,
   },
+  itemContainer: {
+    flexDirection: "row",
+    marginHorizontal: 5,
+  },
+  imgContainer: {
+    marginRight: 10,
+  },
+  itemTextContainer: {
+    flex: 1,
+  },
+  itemNameText: {
+    flexDirection: "row",
+  },
   item: {
     flex: 1,
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
-    borderRadius: 5,
+    // borderRadius: 5,
     marginBottom: 10,
   },
   title: {
