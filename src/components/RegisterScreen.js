@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, createRef } from "react";
 import {
   StyleSheet,
@@ -12,16 +13,21 @@ import {
 } from "react-native";
 
 const RegisterScreen = (props) => {
+  const [fullName, setFullName] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
   const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
 
-  const handleSubmitButton = () => {
+  const handleSubmitButton = async () => {
     setErrortext("");
+    if (!fullName) {
+      alert("Please fill your name");
+      return;
+    }
     if (!userName) {
-      alert("Please fill Name");
+      alert("Please fill user name");
       return;
     }
     if (!userEmail) {
@@ -33,44 +39,29 @@ const RegisterScreen = (props) => {
       alert("Please fill Password");
       return;
     }
-    let dataToSend = {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-    };
-    console.log(dataToSend);
-    let formBody = [];
-    for (let key in dataToSend) {
-      let Key = key;
-      let value = dataToSend[key];
-      formBody.push(Key + "=" + value);
-    }
-    formBody = formBody.join("&");
-    console.log(formBody);
 
-    fetch("https://nc-marketplace-api-aa.herokuapp.com/api/categories", {
-      method: "POST",
-      body: dataToSend,
-      headers: {
-        //Header Defination
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson, "response");
-        // If server response message same as Data Matched
-        if (responseJson.status === "success") {
-          setIsRegistraionSuccess(true);
-          console.log("Registration Successful. Please Login to proceed");
-        } else {
-          setErrortext(responseJson.msg);
+    let response;
+    try {
+      response = await axios.post(
+        "https://ivory-seagull-coat.cyclic.app/api/users/register",
+        {
+          name: fullName,
+          username: userName,
+          email: userEmail,
+          password: userPassword,
         }
-      })
-      .catch((error) => {
-        //Hide Loader
-        console.error(error);
-      });
+      );
+      console.log("response for register", response.data);
+      if (response.status === 201) {
+        console.log("success registered");
+        setIsRegistraionSuccess(true);
+      } else {
+        setErrortext(response.data);
+      }
+    } catch (err) {
+      console.log("user registration error", err);
+      setErrortext(err);
+    }
   };
   if (isRegistraionSuccess) {
     return (
@@ -93,7 +84,7 @@ const RegisterScreen = (props) => {
         <TouchableOpacity
           style={styles.buttonStyle}
           activeOpacity={0.5}
-          onPress={() => props.navigation.navigate("LoginScreen")}
+          onPress={() => props.navigation.navigate("LoginPage")}
         >
           <Text style={styles.buttonTextStyle}>Login Now</Text>
         </TouchableOpacity>
@@ -124,9 +115,21 @@ const RegisterScreen = (props) => {
           <View style={styles.SectionStyle}>
             <TextInput
               style={styles.inputStyle}
-              onChangeText={(UserName) => setUserName(UserName)}
+              onChangeText={(fullName) => setFullName(fullName)}
               underlineColorAndroid="#f000"
               placeholder="Enter Name"
+              placeholderTextColor="#8b9cb5"
+              autoCapitalize="sentences"
+              returnKeyType="next"
+              blurOnSubmit={false}
+            />
+          </View>
+          <View style={styles.SectionStyle}>
+            <TextInput
+              style={styles.inputStyle}
+              onChangeText={(UserName) => setUserName(UserName)}
+              underlineColorAndroid="#f000"
+              placeholder="Enter User Name"
               placeholderTextColor="#8b9cb5"
               autoCapitalize="sentences"
               returnKeyType="next"

@@ -11,7 +11,10 @@ export default function Account({ navigation }) {
       </View>
 
       <View style={styles.btn}>
-        <Button title="Sign up" />
+        <Button
+          title="Sign up"
+          onPress={() => navigation.navigate("RegisterScreen")}
+        />
       </View>
       <View style={styles.btn}>
         <Button title="Sign out" />
