@@ -40,4 +40,9 @@ export const styles = StyleSheet.create({
     marginHorizontal: 26,
     borderRadius: 10,
   },
+  ratingsContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 5,
+  },
 });

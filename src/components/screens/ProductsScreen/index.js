@@ -15,6 +15,7 @@ import { getProducts } from "../../../api/services/products";
 import SearchScreen from "../../SearchScreen";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { styles } from "./Style";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function Products({ navigation }) {
   const [searchInput, setSearchInput] = useState("");
@@ -132,6 +133,18 @@ export default function Products({ navigation }) {
               {item.supermarket}
             </Text>
             <Text style={[styles.title, textColor]}>£{item.price}</Text>
+            <View style={styles.ratingsContainer}>
+              {[0, 0, 0, 0, 0].map((el, i) => (
+                <FontAwesome
+                  key={i}
+                  style={styles.star}
+                  name={i < item.rating ? "star" : "star-o"}
+                  size={15}
+                  color={"#243578"}
+                />
+              ))}
+              <Text>{item.rating}</Text>
+            </View>
           </View>
         </View>
       </TouchableOpacity>
