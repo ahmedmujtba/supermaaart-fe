@@ -58,6 +58,7 @@ const RegisterScreen = (props) => {
   };
 
   if (isRegistraionSuccess) {
+    console.log(isRegistraionSuccess);
     return (
       <View
         style={{
@@ -67,7 +68,7 @@ const RegisterScreen = (props) => {
         }}
       >
         <Image
-          source={require("../../assets/iconA.png")}
+          source={{ uri: "https://i.ibb.co/Gsz2CdY/superm-AAART-1.png" }}
           style={{
             height: 150,
             resizeMode: "contain",
@@ -96,10 +97,12 @@ const RegisterScreen = (props) => {
       >
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("../../assets/iconA.png")}
+            source={{
+              uri: "https://i.ibb.co/K5GRb7d/supermaaart-HIGHRESUPDATED.png",
+            }}
             style={{
               width: "50%",
-              height: 100,
+              height: 150,
               resizeMode: "contain",
               margin: 30,
             }}

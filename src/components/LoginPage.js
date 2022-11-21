@@ -66,7 +66,9 @@ export default function LoginPage({ navigation }) {
           <KeyboardAvoidingView enabled>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../assets/iconA.png")}
+                source={{
+                  uri: "https://i.ibb.co/K5GRb7d/supermaaart-HIGHRESUPDATED.png",
+                }}
                 style={{
                   width: "50%",
                   height: 100,
