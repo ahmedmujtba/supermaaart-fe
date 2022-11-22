@@ -13,7 +13,12 @@ import { styles } from "./Style";
 import Icon from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalScreen from "../ModalScreen";
-import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryTheme,
+  VictoryVoronoiContainer,
+} from "victory-native";
 
 const data = [
   { day: 1, price: 1 },
@@ -35,7 +40,16 @@ export default function ProductDetails({ route, navigation }) {
 
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
-    console.log("data", response.data);
+
+    const priceDates = [];
+    response.data.priceHistory.map((item) => {
+      priceDates.push({
+        updateDate: item.updateDate,
+        price: parseFloat(item.price),
+      });
+    });
+
+    console.log(priceDates);
     if (response.status === 200) {
       setProduct(response.data);
       setLoading(false);
@@ -95,7 +109,11 @@ export default function ProductDetails({ route, navigation }) {
       </Text>
       <Button title="Add" onPress={addItemtoList} />
       <View>
-        <VictoryChart width={300} theme={VictoryTheme.material}>
+        <VictoryChart
+          containerComponent={<VictoryVoronoiContainer />}
+          width={300}
+          theme={VictoryTheme.material}
+        >
           <VictoryBar data={data} x="day" y="price" />
         </VictoryChart>
       </View>
