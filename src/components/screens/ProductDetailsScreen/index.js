@@ -48,7 +48,7 @@ export default function ProductDetails({ route, navigation }) {
     }
   };
 
-  const addItemtoList = () => {
+  const addItemtoList = async () => {
     console.log("add item to the list--user--", signedUser);
     if (signedUser === "") {
       navigation.navigate("LoginPage", {
@@ -57,13 +57,21 @@ export default function ProductDetails({ route, navigation }) {
         itemId,
       });
     } else {
-      saveFavoriteItem({
+      const response = await saveFavoriteItem({
         username: signedUser,
         name: product.name,
         price: product.price,
         pictureLink: product.pictureLink,
         supermarket: product.supermarket,
       });
+      if (response.status === 201) {
+        Alert.alert("Product", "Product Added", [
+          {
+            text: "OK",
+            onPress: () => console.log("OK Pressed"),
+          },
+        ]);
+      }
     }
     console.log("add to list");
   };
