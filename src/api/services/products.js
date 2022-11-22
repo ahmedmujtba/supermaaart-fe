@@ -46,3 +46,14 @@ export async function saveFavoriteItem({
     return err;
   }
 }
+
+export async function getFavoriteItem(username) {
+  try {
+    response = await axios.get(`${Url}/shopping-list/${username}`);
+    console.log("response", response.status);
+    return response;
+  } catch (err) {
+    console.log("catch error--", err);
+    return err;
+  }
+}

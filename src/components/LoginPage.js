@@ -17,7 +17,19 @@ import { loginUser } from "../api/services/users";
 import UserContext from "../context/UserContext";
 
 export default function LoginPage({ route, navigation }) {
-  const { goto, itemName, itemId } = route.params;
+  let itemName, itemId, goto;
+  if (route.params !== undefined) {
+    if (route.params.itemId !== undefined) {
+      itemId = route.params;
+    }
+    if (route.params.itemName !== undefined) {
+      itemName = route.params;
+    }
+    if (route.params.goto !== undefined) {
+      goto = route.params;
+    }
+  }
+
   const [username, setUserName] = useState("");
   const [password, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
