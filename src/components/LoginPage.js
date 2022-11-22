@@ -73,17 +73,21 @@ export default function LoginPage({ route, navigation }) {
   };
 
   return (
-    <View style={styles.mainBody}>
-      <ScrollView
-        keyboardShouldPersistTaps="never"
-        contentContainerStyle={{
-          flex: 1,
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <View>
-          <KeyboardAvoidingView enabled>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset="130"
+      behavior={"padding"}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.mainBody}>
+        <ScrollView
+          keyboardShouldPersistTaps="never"
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <View>
             <View style={{ alignItems: "center" }}>
               <Image
                 source={{
@@ -134,10 +138,10 @@ export default function LoginPage({ route, navigation }) {
             >
               New Here? Register
             </Text>
-          </KeyboardAvoidingView>
-        </View>
-      </ScrollView>
-    </View>
+          </View>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
