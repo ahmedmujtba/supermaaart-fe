@@ -14,21 +14,17 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalScreen from "../ModalScreen";
 import {
+  VictoryAxis,
   VictoryBar,
   VictoryChart,
+  VictoryLabel,
+  VictoryLegend,
+  VictoryLine,
   VictoryTheme,
+  VictoryTooltip,
   VictoryVoronoiContainer,
 } from "victory-native";
-
-const data = [
-  { day: 1, price: 1 },
-  { day: 2, price: 1.4 },
-  { day: 3, price: 1.35 },
-  { day: 4, price: 1.2 },
-  { day: 5, price: 1.2 },
-  { day: 6, price: 1.2 },
-  { day: 7, price: 1.2 },
-];
+import { defaultTheme } from "@rneui/base";
 
 export default function ProductDetails({ route, navigation }) {
   const { itemName, itemId } = route.params;
@@ -37,19 +33,31 @@ export default function ProductDetails({ route, navigation }) {
   const [loading, setLoading] = useState(false);
   const [signedUser, setSignedUser] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [priceHistory, setPriceHistory] = useState([]);
+  const [priceLabels, setPriceLabels] = useState([]);
+  const [month, setMonth] = useState("");
 
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
 
     const priceDates = [];
+    const prices = [];
+    let currentMonth = "";
     response.data.priceHistory.map((item) => {
+      let price = item.price;
+
+      let updateDate = item.updateDate.split(" ")[1];
+      currentMonth = item.updateDate.split(" ")[0];
+      prices.push(price);
       priceDates.push({
-        updateDate: item.updateDate,
-        price: parseFloat(item.price),
+        updateDate: updateDate,
+        price: parseFloat(price),
       });
     });
+    setPriceLabels(prices);
+    setMonth(currentMonth);
 
-    console.log(priceDates);
+    setPriceHistory(priceDates);
     if (response.status === 200) {
       setProduct(response.data);
       setLoading(false);
@@ -81,8 +89,19 @@ export default function ProductDetails({ route, navigation }) {
     setLoading(true);
     checkSignedUser();
     getProductDetailsFn(itemId);
+    priceOverTime();
   }, []);
 
+  const priceOverTime = async () => {
+    try {
+      const currentPrice = priceHistory[priceHistory.length - 1].price;
+      const oldestPrice = priceHistory[0].price;
+      const priceChange = ((currentPrice - oldestPrice) * 100).toFixed(0);
+      return priceChange;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   //Render views
 
   if (loading) {
@@ -98,6 +117,7 @@ export default function ProductDetails({ route, navigation }) {
       <Text>{product.name}</Text>
       <Text>{product.description}</Text>
       <Text>{product.price}</Text>
+      <Text>{}</Text>
       <Text
         style={[
           styles.title,
@@ -110,11 +130,28 @@ export default function ProductDetails({ route, navigation }) {
       <Button title="Add" onPress={addItemtoList} />
       <View>
         <VictoryChart
+          domainPadding={{ x: 20 }}
           containerComponent={<VictoryVoronoiContainer />}
-          width={300}
+          width={380}
           theme={VictoryTheme.material}
+          maxDomain={{ y: parseFloat(product.price) + 1 }}
+          minDomain={{ y: parseFloat(product.price) - 1 }}
         >
-          <VictoryBar data={data} x="day" y="price" />
+          <VictoryAxis
+            label={month}
+            axisLabelComponent={<VictoryLabel dy={25} />}
+          />
+          <VictoryAxis
+            dependentAxis
+            label={"Price(£)"}
+            axisLabelComponent={<VictoryLabel dy={-25} />}
+          />
+          <VictoryBar
+            data={priceHistory}
+            labels={priceLabels}
+            x="updateDate"
+            y="price"
+          ></VictoryBar>
         </VictoryChart>
       </View>
     </ScrollView>
