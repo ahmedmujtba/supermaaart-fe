@@ -23,10 +23,14 @@ export default function Account({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.btn}>
-        <Button
-          title="Sign in"
-          onPress={() => navigation.navigate("LoginPage")}
-        />
+        {signedUser === "" ? (
+          <Button
+            title="Sign in"
+            onPress={() => navigation.navigate("LoginPage")}
+          />
+        ) : (
+          <Text>Hello, {signedUser}</Text>
+        )}
       </View>
 
       <View style={styles.btn}>

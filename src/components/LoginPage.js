@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Alert,
+  ActivityIndicator,
 } from "react-native";
 
 import { loginUser } from "../api/services/users";
@@ -34,8 +35,10 @@ export default function LoginPage({ route, navigation }) {
   const [password, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
   const { signedUser, setSignedUser } = useContext(UserContext);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const showAlert = (routeName = "Home") =>
+  const showAlert = (routeName = "Account") =>
     Alert.alert("Login", "Login Successful", [
       {
         text: "OK",
@@ -50,6 +53,7 @@ export default function LoginPage({ route, navigation }) {
     ]);
 
   const handleSubmitPress = async () => {
+    setLoading(true);
     setErrortext("");
     if (!username) {
       alert("Please fill user name");
@@ -65,13 +69,21 @@ export default function LoginPage({ route, navigation }) {
     if (response.status === 200) {
       console.log("response", response.data);
       setSignedUser(response.data.username);
+      setLoading(false);
       showAlert(goto);
     } else {
+      setLoading(false);
       setErrortext(response.data);
       console.log("Please check your email id or password");
     }
   };
-
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   return (
     <KeyboardAvoidingView
       keyboardVerticalOffset="130"
