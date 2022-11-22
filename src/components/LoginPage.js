@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -14,18 +14,26 @@ import {
 } from "react-native";
 
 import { loginUser } from "../api/services/users";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import UserContext from "../context/UserContext";
 
-export default function LoginPage({ navigation }) {
+export default function LoginPage({ route, navigation }) {
+  const { goto, itemName, itemId } = route.params;
   const [username, setUserName] = useState("");
   const [password, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
+  const { signedUser, setSignedUser } = useContext(UserContext);
 
-  const showAlert = () =>
+  const showAlert = (routeName = "Home") =>
     Alert.alert("Login", "Login Successful", [
       {
         text: "OK",
-        onPress: () => navigation.navigate("Home"),
+        onPress: () => {
+          if (routeName === "Product Details") {
+            navigation.navigate(routeName, { itemName, itemId });
+          } else {
+            navigation.navigate(routeName);
+          }
+        },
       },
     ]);
 
@@ -44,8 +52,8 @@ export default function LoginPage({ navigation }) {
 
     if (response.status === 200) {
       console.log("response", response.data);
-      AsyncStorage.setItem("username", response.data.username);
-      showAlert();
+      setSignedUser(response.data.username);
+      showAlert(goto);
     } else {
       setErrortext(response.data);
       console.log("Please check your email id or password");

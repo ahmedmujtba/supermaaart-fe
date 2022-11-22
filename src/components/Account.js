@@ -1,6 +1,25 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import { useContext } from "react";
+import { View, Text, Button, StyleSheet, Alert } from "react-native";
+import UserContext from "../context/UserContext";
 
 export default function Account({ navigation }) {
+  const { signedUser, setSignedUser } = useContext(UserContext);
+
+  const showAlert = (routeName = "Home") =>
+    Alert.alert("Logout", "Logout Successful", [
+      {
+        text: "OK",
+        onPress: () => navigation.navigate(routeName),
+      },
+    ]);
+  const handleLogout = async () => {
+    try {
+      setSignedUser("");
+      showAlert();
+    } catch (e) {
+      console.log("error in logout", e);
+    }
+  };
   return (
     <View style={styles.container}>
       <View style={styles.btn}>
@@ -17,7 +36,7 @@ export default function Account({ navigation }) {
         />
       </View>
       <View style={styles.btn}>
-        <Button title="Sign out" />
+        <Button title="Sign out" onPress={handleLogout} />
       </View>
     </View>
   );

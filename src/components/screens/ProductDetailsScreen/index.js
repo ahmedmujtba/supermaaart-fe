@@ -7,14 +7,17 @@ import {
   ScrollView,
   ActivityIndicator,
 } from "react-native";
-import { useEffect, useState } from "react";
-import { getProductDetails } from "../../../api/services/products";
+import { useEffect, useState, useContext } from "react";
+import {
+  getProductDetails,
+  saveFavoriteItem,
+} from "../../../api/services/products";
 import { styles } from "./Style";
 import Icon from "react-native-vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalScreen from "../ModalScreen";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
-
+import UserContext from "../../../context/UserContext";
 const data = [
   { day: 1, price: 1 },
   { day: 2, price: 1.4 },
@@ -30,8 +33,8 @@ export default function ProductDetails({ route, navigation }) {
   const [product, setProduct] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [signedUser, setSignedUser] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const { signedUser, setSignedUser } = useContext(UserContext);
 
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
@@ -45,27 +48,27 @@ export default function ProductDetails({ route, navigation }) {
     }
   };
 
-  const checkSignedUser = async () => {
-    try {
-      const userName = await AsyncStorage.getItem("username");
-      if (userName != null) {
-        setSignedUser(userName);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const addItemtoList = () => {
-    console.log("add item to the list");
+    console.log("add item to the list--user--", signedUser);
     if (signedUser === "") {
-      navigation.navigate("LoginPage");
+      navigation.navigate("LoginPage", {
+        goto: "Product Details",
+        itemName,
+        itemId,
+      });
+    } else {
+      saveFavoriteItem({
+        username: signedUser,
+        name: product.name,
+        price: product.price,
+        pictureLink: product.pictureLink,
+        supermarket: product.supermarket,
+      });
     }
     console.log("add to list");
   };
   useEffect(() => {
     setLoading(true);
-    checkSignedUser();
     getProductDetailsFn(itemId);
   }, []);
 
