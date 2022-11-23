@@ -95,8 +95,10 @@ export default function ProductsSaved() {
   }
   if (signedUser === "") {
     return (
-      <View>
-        <Text>Please sign in to see the items.</Text>
+      <View style={{ marginVertical: 100 }}>
+        <Text style={{ textAlign: "center", fontSize: 20, fontWeight: "bold" }}>
+          Please sign in to see the saved items.
+        </Text>
       </View>
     );
   }

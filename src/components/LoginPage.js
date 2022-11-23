@@ -214,4 +214,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });
