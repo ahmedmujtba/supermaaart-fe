@@ -5,6 +5,7 @@ import ProductStackScreen from "./ProductStackScreen";
 import LoginPage from "./LoginPage";
 import RegisterScreen from "./RegisterScreen";
 import AccountStackScreen from "./AccountStackScreen";
+import ProductsSaved from "../components/screens/ProductSaved";
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export default function Navbar() {
       />
       <Tab.Screen
         name="Supermarkets"
-        component={RegisterScreen}
+        component={ProductsSaved}
         options={{
           title: "SupermAAART",
           tabBarLabel: "Favourites",

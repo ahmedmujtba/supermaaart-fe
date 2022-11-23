@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -10,75 +10,103 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
+  ActivityIndicator,
 } from "react-native";
-import axios from "axios";
 
-export default function LoginPage({ navigation }) {
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+import { loginUser } from "../api/services/users";
+import UserContext from "../context/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function LoginPage({ route, navigation }) {
+  let itemName, itemId, goto;
+  if (route.params !== undefined) {
+    if (route.params.itemId !== undefined) {
+      itemId = route.params;
+    }
+    if (route.params.itemName !== undefined) {
+      itemName = route.params;
+    }
+    if (route.params.goto !== undefined) {
+      goto = route.params;
+    }
+  }
+
+  const [username, setUserName] = useState("");
+  const [password, setUserPassword] = useState("");
   const [errortext, setErrortext] = useState("");
+  const { signedUser, setSignedUser } = useContext(UserContext);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmitPress = () => {
+  const showAlert = (routeName = "Account") =>
+    Alert.alert("Login", "Login Successful", [
+      {
+        text: "OK",
+        onPress: () => {
+          if (routeName === "Product Details") {
+            navigation.navigate(routeName, { itemName, itemId });
+          } else {
+            navigation.navigate(routeName);
+          }
+        },
+      },
+    ]);
+
+  const handleSubmitPress = async () => {
+    setLoading(true);
     setErrortext("");
-    if (!userEmail) {
-      alert("Please fill Email");
+    if (!username) {
+      alert("Please fill user name");
       return;
     }
-    if (!userPassword) {
+    if (!password) {
       alert("Please fill Password");
       return;
     }
-    let dataToSend = { email: userEmail, password: userPassword };
-    console.log(dataToSend);
-    let formBody = [];
-    for (let key in dataToSend) {
-      let Key = key;
-      let Value = dataToSend[key];
-      formBody.push(Key + "=" + Value);
+
+    const response = await loginUser({ username, password });
+
+    if (response.status === 200) {
+      console.log("response", response.data);
+      setSignedUser(response.data.username);
+      await AsyncStorage.setItem("userFullName", response.data.name);
+      setLoading(false);
+      showAlert(goto);
+    } else {
+      setLoading(false);
+      setErrortext(response.data);
+      console.log("Please check your email id or password");
     }
-    formBody = formBody.join("&");
-    console.log(formBody);
-
-    fetch("https://jsonplaceholder.typicode.com/users", {
-      method: "POST",
-      body: formBody,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status === "success") {
-          AsyncStorage.setItem("user_id", responseJson.data.email);
-          console.log(responseJson.data.email);
-          navigation.replace("DrawerNavigationRoutes");
-        } else {
-          setErrortext(responseJson.msg);
-          console.log("Please check your email id or password");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
   };
-
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
   return (
-    <View style={styles.mainBody}>
-      <ScrollView
-        keyboardShouldPersistTaps="never"
-        contentContainerStyle={{
-          flex: 1,
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <View>
-          <KeyboardAvoidingView enabled>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset="130"
+      behavior={"padding"}
+      style={{ flex: 1 }}
+    >
+      <View style={styles.mainBody}>
+        <ScrollView
+          keyboardShouldPersistTaps="never"
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <View>
             <View style={{ alignItems: "center" }}>
               <Image
-                source={require("../../assets/iconA.png")}
+                source={{
+                  uri: "https://i.ibb.co/K5GRb7d/supermaaart-HIGHRESUPDATED.png",
+                }}
                 style={{
                   width: "50%",
                   height: 100,
@@ -90,8 +118,8 @@ export default function LoginPage({ navigation }) {
             <View style={styles.SectionStyle}>
               <TextInput
                 style={styles.inputStyle}
-                onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-                placeholder="Enter Email" //dummy@abc.com
+                onChangeText={(username) => setUserName(username)}
+                placeholder="Enter user name"
                 placeholderTextColor="#8b9cb5"
                 underlineColorAndroid="#f000"
               />
@@ -100,7 +128,7 @@ export default function LoginPage({ navigation }) {
               <TextInput
                 style={styles.inputStyle}
                 onChangeText={(UserPassword) => setUserPassword(UserPassword)}
-                placeholder="Enter Password" //12345
+                placeholder="Enter Password"
                 placeholderTextColor="#8b9cb5"
                 keyboardType="default"
                 secureTextEntry={true}
@@ -124,10 +152,10 @@ export default function LoginPage({ navigation }) {
             >
               New Here? Register
             </Text>
-          </KeyboardAvoidingView>
-        </View>
-      </ScrollView>
-    </View>
+          </View>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -185,5 +213,9 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
     fontSize: 14,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
   },
 });

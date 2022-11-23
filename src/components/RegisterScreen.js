@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, createRef } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,7 +7,6 @@ import {
   Text,
   Image,
   KeyboardAvoidingView,
-  Keyboard,
   TouchableOpacity,
   ScrollView,
 } from "react-native";
@@ -59,53 +58,60 @@ const RegisterScreen = (props) => {
 
   if (isRegistraionSuccess) {
     return (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "white",
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={require("../../assets/iconA.png")}
+      <KeyboardAvoidingView>
+        <View
           style={{
-            height: 150,
-            resizeMode: "contain",
-            alignSelf: "center",
+            backgroundColor: "white",
+            justifyContent: "center",
           }}
-        />
-        <Text style={styles.successTextStyle}>Registration Successful</Text>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          activeOpacity={0.5}
-          onPress={() => props.navigation.navigate("LoginPage")}
         >
-          <Text style={styles.buttonTextStyle}>Login Now</Text>
-        </TouchableOpacity>
-      </View>
+          <Image
+            source={{ uri: "https://i.ibb.co/Gsz2CdY/superm-AAART-1.png" }}
+            style={{
+              height: 150,
+              resizeMode: "contain",
+              alignSelf: "center",
+            }}
+          />
+          <Text style={styles.successTextStyle}>Registration Successful</Text>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            activeOpacity={0.5}
+            onPress={() => props.navigation.navigate("LoginPage")}
+          >
+            <Text style={styles.buttonTextStyle}>Login Now</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     );
   }
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          justifyContent: "center",
-          alignContent: "center",
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <Image
-            source={require("../../assets/iconA.png")}
-            style={{
-              width: "50%",
-              height: 100,
-              resizeMode: "contain",
-              margin: 30,
-            }}
-          />
-        </View>
-        <KeyboardAvoidingView enabled>
+    <KeyboardAvoidingView
+      keyboardVerticalOffset="130"
+      behavior={"padding"}
+      style={{ flex: 1 }}
+    >
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{
+            justifyContent: "flex-end",
+            alignContent: "flex",
+          }}
+        >
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={{
+                uri: "https://i.ibb.co/K5GRb7d/supermaaart-HIGHRESUPDATED.png",
+              }}
+              style={{
+                width: "50%",
+                height: 150,
+                resizeMode: "contain",
+                margin: 30,
+              }}
+            />
+          </View>
           <View style={styles.SectionStyle}>
             <TextInput
               style={styles.inputStyle}
@@ -118,6 +124,7 @@ const RegisterScreen = (props) => {
               blurOnSubmit={false}
             />
           </View>
+
           <View style={styles.SectionStyle}>
             <TextInput
               style={styles.inputStyle}
@@ -154,20 +161,19 @@ const RegisterScreen = (props) => {
               blurOnSubmit={false}
             />
           </View>
-
           {errortext != "" ? (
             <Text style={styles.errorTextStyle}>{errortext}</Text>
           ) : null}
           <TouchableOpacity
             style={styles.buttonStyle}
-            activeOpacity={0.5}
+            activeOpacity={0.2}
             onPress={handleSubmitButton}
           >
             <Text style={styles.buttonTextStyle}>REGISTER</Text>
           </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 export default RegisterScreen;
@@ -214,7 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   successTextStyle: {
-    color: "white",
+    color: "black",
     textAlign: "center",
     fontSize: 18,
     padding: 30,

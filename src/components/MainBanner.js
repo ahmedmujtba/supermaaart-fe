@@ -24,7 +24,7 @@ const MainBanner = ({ navigation }) => (
         display: "flex",
         justContent: "center",
         alignItems: "center",
-        margin: 20,
+        marginTop: 10,
       }}
     >
       <Card.Content>
@@ -32,7 +32,7 @@ const MainBanner = ({ navigation }) => (
       </Card.Content>
       <Card.Cover
         source={{
-          uri: "https://i.ibb.co/xXT4Rmh/logo.png",
+          uri: "https://i.ibb.co/K5GRb7d/supermaaart-HIGHRESUPDATED.png",
         }}
       />
       <Card.Actions>
@@ -78,5 +78,10 @@ export default MainBanner;
 
 const styles = StyleSheet.create({
   container: {},
-  imgcontainer: { borderColor: "red", borderTopWidth: 2, borderBottomWidth: 2 },
+  imgcontainer: {
+    borderColor: "red",
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    marginTop: 130,
+  },
 });
