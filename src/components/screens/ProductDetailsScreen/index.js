@@ -103,8 +103,15 @@ export default function ProductDetails({ route, navigation }) {
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.pictureLink }} style={styles.logo} />
       <Text>{product.name}</Text>
-      <Text>{product.description}</Text>
-      <Text>{"£" + product.price}</Text>
+
+      <Text>
+        {product.description}
+        {"\n"}
+      </Text>
+      <Text>
+        {"£" + product.price}
+        {"\n"}
+      </Text>
       <Text
         style={[
           styles.title,
@@ -112,19 +119,22 @@ export default function ProductDetails({ route, navigation }) {
           { fontWeight: "bold" },
         ]}
       >
-        {product.supermarket}
+        {product.supermarket} {"\n"}
       </Text>
       {otherSupermarkets.length > 0 && (
         <View>
-          <Text>Other Supermarket prices</Text>
+          <Text>Other Supermarket prices: {"\n"}</Text>
           {otherSupermarkets.map((superMarket) => {
             return (
               <View>
-                <Text style={{ borderColor: "red" }}>
+                <Text>
                   {superMarket.brand.charAt(0).toUpperCase() +
                     superMarket.brand.slice(1)}
                 </Text>
-                <Text style={{ color: "blue" }}>{"£" + superMarket.price}</Text>
+                <Text style={{ color: "blue" }}>
+                  {"£" + superMarket.price}
+                  {"\n"}
+                </Text>
               </View>
             );
           })}
