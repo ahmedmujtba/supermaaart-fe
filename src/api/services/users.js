@@ -13,8 +13,8 @@ export async function postRegisterUser({ name, username, email, password }) {
     console.log("response", response.status);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }
 export async function loginUser({ username, password }) {
@@ -27,7 +27,7 @@ export async function loginUser({ username, password }) {
     console.log("response", response.status);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }

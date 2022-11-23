@@ -8,8 +8,8 @@ export async function getProducts() {
     console.log("response", response.status);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }
 
@@ -19,8 +19,8 @@ export async function getProductDetails(id) {
     console.log("product details response", response.status);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }
 
@@ -32,28 +32,28 @@ export async function saveFavoriteItem({
   supermarket,
 }) {
   try {
-    response = await axios.post(`${Url}/shopping-list`, {
+    const response = await axios.post(`${Url}/shopping-list`, {
       username,
       name,
       price,
       pictureLink,
       supermarket,
     });
-    console.log("response", response.status);
+    console.log("response in api call", response);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }
 
 export async function getFavoriteItem(username) {
   try {
-    response = await axios.get(`${Url}/shopping-list/${username}`);
+    const response = await axios.get(`${Url}/shopping-list/${username}`);
     console.log("response", response.status);
     return response;
   } catch (err) {
-    console.log("catch error--", err);
-    return err;
+    console.log("catch error--", err.response.data);
+    return err.response;
   }
 }

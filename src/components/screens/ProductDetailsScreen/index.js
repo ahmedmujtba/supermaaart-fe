@@ -135,7 +135,8 @@ export default function ProductDetails({ route, navigation }) {
           },
         ]);
       } else {
-        setError(response.data);
+        console.log("error response from add list", response.data);
+        setError(response.data.message);
         setLoading(false);
       }
     }
@@ -152,6 +153,13 @@ export default function ProductDetails({ route, navigation }) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+  if (error !== "") {
+    return (
+      <View>
+        <Text>{error}</Text>
       </View>
     );
   }
