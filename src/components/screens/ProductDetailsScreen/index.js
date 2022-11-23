@@ -36,6 +36,7 @@ export default function ProductDetails({ route, navigation }) {
   const [priceHistory, setPriceHistory] = useState([]);
   const [priceLabels, setPriceLabels] = useState([]);
   const [month, setMonth] = useState("");
+  const [priceTrend, setPriceTrend] = useState({});
 
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
@@ -43,7 +44,7 @@ export default function ProductDetails({ route, navigation }) {
     const priceDates = [];
     const prices = [];
     let currentMonth = "";
-    response.data.priceHistory.map((item) => {
+    response.data.priceHistory.forEach((item) => {
       let price = item.price;
 
       let updateDate = item.updateDate.split(" ")[1];
@@ -54,8 +55,26 @@ export default function ProductDetails({ route, navigation }) {
         price: parseFloat(price),
       });
     });
+    let averagePrice = 0;
+    const currentPrice = priceDates[priceDates.length - 1].price;
+    const oldestPrice = priceDates[priceDates.length - 7].price;
+
+    priceDates.map((date) => {
+      averagePrice += date.price;
+    });
+
+    averagePrice = (averagePrice / priceDates.length).toFixed(2);
+    const percentage =
+      (((oldestPrice - currentPrice) / oldestPrice) * 100).toFixed(0) * -1;
+
+    const priceChange = {
+      priceChange: percentage,
+      averagePrice: parseFloat(averagePrice),
+    };
+
     setPriceLabels(prices);
     setMonth(currentMonth);
+    setPriceTrend(priceChange);
     setPriceHistory(priceDates);
 
     if (response.status === 200) {
@@ -86,22 +105,10 @@ export default function ProductDetails({ route, navigation }) {
     console.log("add to list");
   };
 
-  const priceOverTime = async () => {
-    try {
-      const currentPrice = priceHistory[priceHistory.length - 1].price;
-      const oldestPrice = priceHistory[0].price;
-      const priceChange = ((currentPrice - oldestPrice) * 100).toFixed(0);
-      console.log(priceChange);
-      return priceChange;
-    } catch (err) {
-      console.log(err);
-    }
-  };
   useEffect(() => {
     setLoading(true);
     checkSignedUser();
     getProductDetailsFn(itemId);
-    priceOverTime();
   }, []);
 
   //Render views
@@ -129,8 +136,10 @@ export default function ProductDetails({ route, navigation }) {
       >
         {product.supermarket}
       </Text>
-      <Text>{priceOverTime()}</Text>
+      <Text>{`Price Change (week): ${priceTrend.priceChange}% `}</Text>
+      <Text>{`Average Price: £${priceTrend.averagePrice}`}</Text>
       <Button title="Add" onPress={addItemtoList} />
+      <Text>Recent Prices:</Text>
       <View style={styles.chartContainer}>
         <VictoryChart
           domainPadding={{ x: 20 }}
@@ -140,13 +149,22 @@ export default function ProductDetails({ route, navigation }) {
           maxDomain={{ y: parseFloat(product.price) + 1 }}
           minDomain={{ y: parseFloat(product.price) - 1 }}
         >
+          <VictoryLegend
+            orientation="horizontal"
+            x={70}
+            y={5}
+            data={[
+              { name: "Below Average", symbol: { fill: "green" } },
+              { name: "Above Average", symbol: { fill: "red" } },
+            ]}
+          />
           <VictoryAxis
-            label={month}
+            label={`Month: ${month}`}
             axisLabelComponent={<VictoryLabel dy={25} />}
           />
           <VictoryAxis
             dependentAxis
-            label={"Price(£)"}
+            label={"Price (£)"}
             axisLabelComponent={<VictoryLabel dy={-25} />}
           />
           <VictoryBar
@@ -154,6 +172,12 @@ export default function ProductDetails({ route, navigation }) {
             labels={priceLabels}
             x="updateDate"
             y="price"
+            style={{
+              data: {
+                fill: ({ datum }) =>
+                  datum.price <= priceTrend.averagePrice ? "green" : "red",
+              },
+            }}
           ></VictoryBar>
         </VictoryChart>
       </View>
