@@ -22,8 +22,11 @@ export default function ProductsSaved() {
     if (response.status === 200) {
       setLoading(false);
       setSavedProducts(response.data);
+    } else {
+      setError(response.data);
     }
   };
+
   useEffect(() => {
     if (signedUser !== "") {
       console.log("user signed in", signedUser);
@@ -32,7 +35,7 @@ export default function ProductsSaved() {
     } else {
       console.log("please sign in");
     }
-  }, []);
+  }, [signedUser]);
 
   const Item = ({ item, textColor }) => (
     <View>
@@ -100,7 +103,9 @@ export default function ProductsSaved() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{fontWeight:'600'}}>Your saved product</Text>
+      <Text style={{ fontWeight: "600", textAlign: "center" }}>
+        Your saved product
+      </Text>
       <FlatList
         data={savedProducts}
         renderItem={renderItem}
