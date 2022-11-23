@@ -56,8 +56,8 @@ export default function ProductDetails({ route, navigation }) {
     });
     setPriceLabels(prices);
     setMonth(currentMonth);
-
     setPriceHistory(priceDates);
+
     if (response.status === 200) {
       setProduct(response.data);
       setLoading(false);
@@ -85,6 +85,18 @@ export default function ProductDetails({ route, navigation }) {
     }
     console.log("add to list");
   };
+
+  const priceOverTime = async () => {
+    try {
+      const currentPrice = priceHistory[priceHistory.length - 1].price;
+      const oldestPrice = priceHistory[0].price;
+      const priceChange = ((currentPrice - oldestPrice) * 100).toFixed(0);
+      console.log(priceChange);
+      return priceChange;
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     setLoading(true);
     checkSignedUser();
@@ -92,16 +104,6 @@ export default function ProductDetails({ route, navigation }) {
     priceOverTime();
   }, []);
 
-  const priceOverTime = async () => {
-    try {
-      const currentPrice = priceHistory[priceHistory.length - 1].price;
-      const oldestPrice = priceHistory[0].price;
-      const priceChange = ((currentPrice - oldestPrice) * 100).toFixed(0);
-      return priceChange;
-    } catch (err) {
-      console.log(err);
-    }
-  };
   //Render views
 
   if (loading) {
@@ -117,7 +119,7 @@ export default function ProductDetails({ route, navigation }) {
       <Text>{product.name}</Text>
       <Text>{product.description}</Text>
       <Text>{product.price}</Text>
-      <Text>{}</Text>
+
       <Text
         style={[
           styles.title,
@@ -127,8 +129,9 @@ export default function ProductDetails({ route, navigation }) {
       >
         {product.supermarket}
       </Text>
+      <Text>{priceOverTime()}</Text>
       <Button title="Add" onPress={addItemtoList} />
-      <View>
+      <View style={styles.chartContainer}>
         <VictoryChart
           domainPadding={{ x: 20 }}
           containerComponent={<VictoryVoronoiContainer />}

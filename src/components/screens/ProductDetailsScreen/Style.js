@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     backgroundColor: "white",
     padding: 30,
     height: 800,
+    marginBottom: 0,
   },
   title: {
     fontSize: 15,
@@ -16,5 +17,8 @@ export const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
+  },
+  chartContainer: {
+    marginBottom: 50,
   },
 });
