@@ -149,8 +149,14 @@ export default function ProductDetails({ route, navigation }) {
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.pictureLink }} style={styles.logo} />
       <Text>{product.name}</Text>
-      <Text>{product.description}</Text>
-      <Text>{product.price}</Text>
+      <Text>
+        {product.description}
+        {"\n"}
+      </Text>
+      <Text>
+        {"£" + product.price}
+        {"\n"}
+      </Text>
       <Text
         style={[
           styles.title,
@@ -158,7 +164,7 @@ export default function ProductDetails({ route, navigation }) {
           { fontWeight: "bold" },
         ]}
       >
-        {product.supermarket}
+        {product.supermarket} {"\n"}
       </Text>
       {otherSupermarkets.length > 0 && (
         <View>
@@ -166,8 +172,10 @@ export default function ProductDetails({ route, navigation }) {
           {otherSupermarkets.map((superMarket) => {
             return (
               <View>
-                <Text>{superMarket.brand}</Text>
-                <Text>{superMarket.price}</Text>
+                <Text style={{ textTransform: "capitalize" }}>
+                  {superMarket.brand}
+                </Text>
+                <Text>£{superMarket.price}</Text>
               </View>
             );
           })}
