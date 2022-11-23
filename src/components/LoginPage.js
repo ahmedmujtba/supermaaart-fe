@@ -22,13 +22,13 @@ export default function LoginPage({ route, navigation }) {
   let itemName, itemId, goto;
   if (route.params !== undefined) {
     if (route.params.itemId !== undefined) {
-      itemId = route.params;
+      itemId = route.params.itemId;
     }
     if (route.params.itemName !== undefined) {
-      itemName = route.params;
+      itemName = route.params.itemName;
     }
     if (route.params.goto !== undefined) {
-      goto = route.params;
+      goto = route.params.goto;
     }
   }
 
