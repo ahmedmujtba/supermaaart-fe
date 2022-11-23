@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    marginBottom: 150,
+    margin: 10,
   },
   itemContainer: {
     flexDirection: "row",

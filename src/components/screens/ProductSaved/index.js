@@ -100,6 +100,7 @@ export default function ProductsSaved() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text style={{fontWeight:'600'}}>Your saved product</Text>
       <FlatList
         data={savedProducts}
         renderItem={renderItem}
