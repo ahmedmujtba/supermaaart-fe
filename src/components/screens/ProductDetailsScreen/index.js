@@ -18,6 +18,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ModalScreen from "../ModalScreen";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import UserContext from "../../../context/UserContext";
+import ProductContext from "../../../context/ProductContext";
+
 const data = [
   { day: 1, price: 1 },
   { day: 2, price: 1.4 },
@@ -36,6 +38,8 @@ export default function ProductDetails({ route, navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { signedUser, setSignedUser } = useContext(UserContext);
   const [otherSupermarkets, setOtherSupermarkets] = useState([]);
+  const { savedProducts, setSavedProducts } = useContext(ProductContext);
+
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
     console.log("data", response.data);
@@ -74,13 +78,19 @@ export default function ProductDetails({ route, navigation }) {
         pictureLink: product.pictureLink,
         supermarket: product.supermarket,
       });
+      console.log("response from server for saving", response);
+
       if (response.status === 201) {
+        setSavedProducts((prevProducts) => [...prevProducts, response.data]);
         Alert.alert("Product", "Product Added", [
           {
             text: "OK",
             onPress: () => console.log("OK Pressed"),
           },
         ]);
+      } else {
+        setError(response.data);
+        setLoading(false);
       }
     }
     console.log("add to list");
