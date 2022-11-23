@@ -19,13 +19,13 @@ import ModalScreen from "../ModalScreen";
 import { VictoryBar, VictoryChart, VictoryTheme } from "victory-native";
 import UserContext from "../../../context/UserContext";
 const data = [
-  { day: 1, price: 1 },
-  { day: 2, price: 1.4 },
-  { day: 3, price: 1.35 },
-  { day: 4, price: 1.2 },
-  { day: 5, price: 1.2 },
-  { day: 6, price: 1.2 },
-  { day: 7, price: 1.2 },
+  { day: 1, price: 1, fill: "green" },
+  { day: 2, price: 1.4, fill: "red" },
+  { day: 3, price: 1.35, fill: "red" },
+  { day: 4, price: 1.2, fill: "orange" },
+  { day: 5, price: 1.2, fill: "orange" },
+  { day: 6, price: 1.2, fill: "orange" },
+  { day: 7, price: 1.2, fill: "orange" },
 ];
 
 export default function ProductDetails({ route, navigation }) {
@@ -104,7 +104,7 @@ export default function ProductDetails({ route, navigation }) {
       <Image source={{ uri: product.pictureLink }} style={styles.logo} />
       <Text>{product.name}</Text>
       <Text>{product.description}</Text>
-      <Text>{product.price}</Text>
+      <Text>{"£" + product.price}</Text>
       <Text
         style={[
           styles.title,
@@ -120,8 +120,11 @@ export default function ProductDetails({ route, navigation }) {
           {otherSupermarkets.map((superMarket) => {
             return (
               <View>
-                <Text>{superMarket.brand}</Text>
-                <Text>{superMarket.price}</Text>
+                <Text style={{ borderColor: "red" }}>
+                  {superMarket.brand.charAt(0).toUpperCase() +
+                    superMarket.brand.slice(1)}
+                </Text>
+                <Text style={{ color: "blue" }}>{"£" + superMarket.price}</Text>
               </View>
             );
           })}
@@ -130,7 +133,16 @@ export default function ProductDetails({ route, navigation }) {
       <Button title="Add" onPress={addItemtoList} />
       <View>
         <VictoryChart width={300} theme={VictoryTheme.material}>
-          <VictoryBar data={data} x="day" y="price" />
+          <VictoryBar
+            style={{
+              data: {
+                fill: ({ datum }) => datum.fill,
+              },
+            }}
+            data={data}
+            x="day"
+            y="price"
+          />
         </VictoryChart>
       </View>
     </ScrollView>
