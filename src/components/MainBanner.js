@@ -39,7 +39,7 @@ const MainBanner = ({ navigation }) => (
         <Paragraph>Use supermAAART now!</Paragraph>
         <Button
           buttonColor="#3b5998"
-          onPress={() => navigation.navigate("Products")}
+          onPress={() => navigation.navigate("ProductStackScreen")}
         >
           Start
         </Button>

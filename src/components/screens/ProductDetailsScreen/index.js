@@ -195,7 +195,7 @@ export default function ProductDetails({ route, navigation }) {
               { marginVertical: 5 },
             ]}
           >
-            Other Supermarket prices
+            Price Comparison
           </Text>
           {otherSupermarkets.map((superMarket) => {
             return (
