@@ -16,7 +16,7 @@ export async function getProducts() {
 export async function getProductDetails(id) {
   try {
     const response = await axios.get(`${Url}/products/${id}`);
-    console.log("response", response.status);
+    console.log("product details response", response.status);
     return response;
   } catch (err) {
     console.log("catch error--", err);

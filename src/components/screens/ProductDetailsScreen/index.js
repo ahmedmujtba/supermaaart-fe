@@ -35,10 +35,20 @@ export default function ProductDetails({ route, navigation }) {
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const { signedUser, setSignedUser } = useContext(UserContext);
-
+  const [otherSupermarkets, setOtherSupermarkets] = useState([]);
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
     console.log("data", response.data);
+    if (response.data && response.data.otherSupermarkets) {
+      console.log("others market data", response.data.otherSupermarkets);
+      for (const [key, val] of Object.entries(
+        response.data.otherSupermarkets
+      )) {
+        setOtherSupermarkets((prevItem) => {
+          return [...prevItem, { brand: key, price: val }];
+        });
+      }
+    }
     if (response.status === 200) {
       setProduct(response.data);
       setLoading(false);
@@ -104,6 +114,19 @@ export default function ProductDetails({ route, navigation }) {
       >
         {product.supermarket}
       </Text>
+      {otherSupermarkets.length > 0 && (
+        <View>
+          <Text>Other Supermarket prices</Text>
+          {otherSupermarkets.map((superMarket) => {
+            return (
+              <View>
+                <Text>{superMarket.brand}</Text>
+                <Text>{superMarket.price}</Text>
+              </View>
+            );
+          })}
+        </View>
+      )}
       <Button title="Add" onPress={addItemtoList} />
       <View>
         <VictoryChart width={300} theme={VictoryTheme.material}>
