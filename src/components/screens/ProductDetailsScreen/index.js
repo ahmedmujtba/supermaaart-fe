@@ -127,6 +127,7 @@ export default function ProductDetails({ route, navigation }) {
       console.log("Response from server for saving--", response);
 
       if (response.status === 201) {
+        setLoading(false);
         setSavedProducts((prevProducts) => [...prevProducts, response.data]);
         Alert.alert("Product", "Product Added", [
           {
@@ -136,8 +137,14 @@ export default function ProductDetails({ route, navigation }) {
         ]);
       } else {
         console.log("error response from add list", response.data);
-        setError(response.data.message);
+        // setError(response.data.message);
         setLoading(false);
+        Alert.alert("Product", `${response.data.message}`, [
+          {
+            text: "OK",
+            onPress: () => console.log("OK Pressed"),
+          },
+        ]);
       }
     }
     console.log("add to list");
@@ -156,13 +163,7 @@ export default function ProductDetails({ route, navigation }) {
       </View>
     );
   }
-  if (error !== "") {
-    return (
-      <View>
-        <Text>{error}</Text>
-      </View>
-    );
-  }
+
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.pictureLink }} style={styles.itemImg} />
