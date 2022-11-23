@@ -6,6 +6,7 @@ import {
   Alert,
   ScrollView,
   ActivityIndicator,
+  FlatList,
 } from "react-native";
 import { useEffect, useState, useContext } from "react";
 import {
@@ -48,17 +49,26 @@ export default function ProductDetails({ route, navigation }) {
   const getProductDetailsFn = async (itemId) => {
     const response = await getProductDetails(itemId);
     console.log("data", response.data);
-    if (response.data && response.data.otherSupermarkets) {
-      console.log("others market data", response.data.otherSupermarkets);
-      for (const [key, val] of Object.entries(
-        response.data.otherSupermarkets
-      )) {
-        setOtherSupermarkets((prevItem) => {
-          return [...prevItem, { brand: key, price: val }];
-        });
-      }
-    }
+
     if (response.status === 200) {
+      if (response.data && response.data.otherSupermarkets) {
+        console.log("others market data", response.data.otherSupermarkets);
+        for (const [key, val] of Object.entries(
+          response.data.otherSupermarkets
+        )) {
+          setOtherSupermarkets((prevItem) => {
+            let itemExists = false;
+            prevItem.forEach((item) => {
+              if (item.brand === key) {
+                itemExists = true;
+              }
+            });
+            return itemExists
+              ? [...prevItem]
+              : [...prevItem, { brand: key, price: val }];
+          });
+        }
+      }
       const priceDates = [];
       const prices = [];
       let currentMonth = "";
@@ -114,7 +124,7 @@ export default function ProductDetails({ route, navigation }) {
         pictureLink: product.pictureLink,
         supermarket: product.supermarket,
       });
-      console.log("response from server for saving", response);
+      console.log("Response from server for saving--", response);
 
       if (response.status === 201) {
         setSavedProducts((prevProducts) => [...prevProducts, response.data]);
@@ -147,35 +157,41 @@ export default function ProductDetails({ route, navigation }) {
   }
   return (
     <ScrollView style={styles.container}>
-      <Image source={{ uri: product.pictureLink }} style={styles.logo} />
-      <Text>{product.name}</Text>
-      <Text>
-        {product.description}
-        {"\n"}
-      </Text>
-      <Text>
-        {"£" + product.price}
-        {"\n"}
-      </Text>
+      <Image source={{ uri: product.pictureLink }} style={styles.itemImg} />
+      <Text style={styles.textColor}>{product.name}</Text>
+      <Text style={styles.textColor}>{product.description}</Text>
+      <Text style={styles.textColor}>£{product.price}</Text>
       <Text
         style={[
           styles.title,
+          styles.textColor,
           { textTransform: "capitalize" },
           { fontWeight: "bold" },
         ]}
       >
-        {product.supermarket} {"\n"}
+        {product.supermarket}
       </Text>
       {otherSupermarkets.length > 0 && (
         <View>
-          <Text>Other Supermarket prices</Text>
+          <Text
+            style={[
+              styles.title,
+              styles.textColor,
+              { textTransform: "capitalize" },
+              { fontWeight: "bold" },
+            ]}
+          >
+            Other Supermarket prices
+          </Text>
           {otherSupermarkets.map((superMarket) => {
             return (
-              <View>
-                <Text style={{ textTransform: "capitalize" }}>
+              <View key={superMarket.brand}>
+                <Text
+                  style={[styles.textColor, { textTransform: "capitalize" }]}
+                >
                   {superMarket.brand}
                 </Text>
-                <Text>£{superMarket.price}</Text>
+                <Text style={styles.textColor}>£{superMarket.price}</Text>
               </View>
             );
           })}

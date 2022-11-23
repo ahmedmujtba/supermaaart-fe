@@ -7,12 +7,15 @@ export const styles = StyleSheet.create({
     height: 800,
     marginBottom: 0,
   },
+  textColor: {
+    color: "#243578",
+  },
   title: {
     fontSize: 15,
   },
-  logo: {
-    width: 300,
-    height: 300,
+  itemImg: {
+    width: 220,
+    height: 220,
   },
   loadingContainer: {
     flex: 1,
