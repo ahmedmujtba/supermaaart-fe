@@ -8,15 +8,17 @@ import {
   Image,
 } from "react-native";
 import UserContext from "../../../context/UserContext";
+import ProductContext from "../../../context/ProductContext";
+
 import { getFavoriteItem } from "../../../api/services/products";
 import { styles } from "./Style";
 export default function ProductsSaved() {
   const { signedUser, setSignedUser } = useContext(UserContext);
-  const [savedProducts, setSavedProducts] = useState([]);
+  const { savedProducts, setSavedProducts } = useContext(ProductContext);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const fetchFavItems = async (signedUser) => {
+  const fetchFavItems = async () => {
     const response = await getFavoriteItem(signedUser);
     console.log("fetchFavItems--", response.data);
     if (response.status === 200) {
@@ -31,11 +33,11 @@ export default function ProductsSaved() {
     if (signedUser !== "") {
       console.log("user signed in", signedUser);
       setLoading(true);
-      fetchFavItems(signedUser);
+      fetchFavItems();
     } else {
       console.log("please sign in");
     }
-  }, [signedUser]);
+  }, [signedUser, savedProducts.length]);
 
   const Item = ({ item, textColor }) => (
     <View>
