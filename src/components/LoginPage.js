@@ -16,6 +16,7 @@ import {
 
 import { loginUser } from "../api/services/users";
 import UserContext from "../context/UserContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginPage({ route, navigation }) {
   let itemName, itemId, goto;
@@ -69,6 +70,7 @@ export default function LoginPage({ route, navigation }) {
     if (response.status === 200) {
       console.log("response", response.data);
       setSignedUser(response.data.username);
+      await AsyncStorage.setItem("userFullName", response.data.name);
       setLoading(false);
       showAlert(goto);
     } else {
