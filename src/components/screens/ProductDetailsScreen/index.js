@@ -167,9 +167,6 @@ export default function ProductDetails({ route, navigation }) {
   return (
     <ScrollView style={styles.container}>
       <Image source={{ uri: product.pictureLink }} style={styles.itemImg} />
-      <Text style={styles.textColor}>{product.name}</Text>
-      <Text style={styles.textColor}>{product.description}</Text>
-      <Text style={styles.textColor}>£{product.price}</Text>
       <Text
         style={[
           styles.title,
@@ -180,6 +177,13 @@ export default function ProductDetails({ route, navigation }) {
       >
         {product.supermarket}
       </Text>
+      <Text style={[styles.textColor, { marginVertical: 3 }]}>
+        {product.name}
+      </Text>
+      <Text style={[styles.textColor, { marginVertical: 3 }]}>
+        {product.description} &nbsp; &nbsp; &nbsp; &nbsp; £{product.price}
+      </Text>
+
       {otherSupermarkets.length > 0 && (
         <View>
           <Text
@@ -188,28 +192,45 @@ export default function ProductDetails({ route, navigation }) {
               styles.textColor,
               { textTransform: "capitalize" },
               { fontWeight: "bold" },
+              { marginVertical: 5 },
             ]}
           >
             Other Supermarket prices
           </Text>
           {otherSupermarkets.map((superMarket) => {
             return (
-              <View key={superMarket.brand}>
+              <View
+                key={superMarket.brand}
+                style={styles.otherSupermarketsContainer}
+              >
                 <Text
-                  style={[styles.textColor, { textTransform: "capitalize" }]}
+                  style={[
+                    styles.textColor,
+                    styles.otherBrands,
+                    { textTransform: "capitalize" },
+                  ]}
                 >
                   {superMarket.brand}
                 </Text>
-                <Text style={styles.textColor}>£{superMarket.price}</Text>
+                <Text style={[styles.textColor, styles.otherBrandsPrice]}>
+                  £{superMarket.price}
+                </Text>
               </View>
             );
           })}
         </View>
       )}
-      <Text>{`Price Change (week): ${priceTrend.priceChange}% `}</Text>
-      <Text>{`Average Price: £${priceTrend.averagePrice}`}</Text>
-      <Button title="Add" onPress={addItemtoList} />
-      <Text>Recent Prices:</Text>
+      <Text
+        style={[styles.textColor, { marginTop: 10 }]}
+      >{`Price Change (week): ${priceTrend.priceChange}% `}</Text>
+      <Text
+        style={[styles.textColor, { marginTop: 3 }]}
+      >{`Average Price: £${priceTrend.averagePrice}`}</Text>
+      <View style={styles.addBtn}>
+        <Button title="Add" onPress={addItemtoList} />
+      </View>
+
+      <Text style={styles.textColor}>Recent Prices:</Text>
       <View style={styles.chartContainer}>
         <VictoryChart
           domainPadding={{ x: 20 }}

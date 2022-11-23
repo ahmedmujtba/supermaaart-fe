@@ -24,4 +24,24 @@ export const styles = StyleSheet.create({
   chartContainer: {
     marginBottom: 50,
   },
+  otherSupermarketsContainer: {
+    flexDirection: "row",
+    margin: 5,
+    justifyContent: "space-around",
+  },
+  otherBrands: {
+    marginRight: 5,
+    fontWeight: "600",
+  },
+  otherBrandsPrice: {
+    marginLeft: 5,
+  },
+  addBtn: {
+    width: "50%",
+    marginHorizontal: "30%",
+    marginVertical: 20,
+    borderColor: "blue",
+    borderWidth: 1,
+    borderRadius: 5,
+  },
 });
