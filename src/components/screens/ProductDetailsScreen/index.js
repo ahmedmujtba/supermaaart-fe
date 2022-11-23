@@ -185,7 +185,7 @@ export default function ProductDetails({ route, navigation }) {
       </Text>
 
       {otherSupermarkets.length > 0 && (
-        <View>
+        <View style={styles.otherSupermarketsLine}>
           <Text
             style={[
               styles.title,

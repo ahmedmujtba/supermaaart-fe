@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
   otherSupermarketsContainer: {
     flexDirection: "row",
     margin: 5,
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   otherBrands: {
     marginRight: 5,
@@ -43,5 +43,13 @@ export const styles = StyleSheet.create({
     borderColor: "blue",
     borderWidth: 1,
     borderRadius: 5,
+  },
+  otherSupermarketsLine: {
+    marginVertical: 5,
+    borderTopColor: "grey",
+    borderBottomColor: "grey",
+    borderLeftColor: "white",
+    borderRightColor: "white",
+    borderWidth: 1,
   },
 });
