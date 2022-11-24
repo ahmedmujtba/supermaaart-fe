@@ -132,7 +132,7 @@ export default function Products({ navigation }) {
             >
               {item.supermarket}
             </Text>
-            <Text style={[styles.title, textColor]}>£{item.price}</Text>
+
             <View style={styles.ratingsContainer}>
               {[0, 0, 0, 0, 0].map((el, i) => (
                 <FontAwesome
@@ -145,6 +145,20 @@ export default function Products({ navigation }) {
               ))}
               <Text>{item.rating}</Text>
             </View>
+            <Text
+              style={[
+                styles.title,
+                textColor,
+                {
+                  textAlign: "right",
+                  fontSize: 20,
+                  fontWeight: "bold",
+                  textDecorationLine: "underline",
+                },
+              ]}
+            >
+              £{item.price}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
