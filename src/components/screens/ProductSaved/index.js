@@ -107,7 +107,15 @@ export default function ProductsSaved() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={{ fontWeight: "600", textAlign: "center" }}>
+      <Text
+        style={{
+          fontWeight: "600",
+          textAlign: "center",
+          fontSize: 20,
+          color: "#243578",
+          marginBottom: 30,
+        }}
+      >
         Your saved product
       </Text>
       <FlatList
