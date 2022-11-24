@@ -26,6 +26,7 @@ const MainBanner = ({ navigation }) => (
         alignItems: "center",
         marginTop: 10,
         borderRadius: 0,
+        backgroundColor: "white",
       }}
     >
       <Card.Content>
@@ -91,13 +92,16 @@ const MainBanner = ({ navigation }) => (
         keyExtractor={(item) => item.id}
       />
     </View>
+    <View style={{ height: 100 }}></View>
   </View>
 );
 
 export default MainBanner;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: "white",
+  },
   imgcontainer: {
     borderColor: "red",
     borderTopWidth: 2,
