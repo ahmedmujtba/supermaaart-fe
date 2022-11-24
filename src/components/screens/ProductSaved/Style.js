@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
   },
   listContainer: {
     marginBottom: 100,
+    marginLeft: 10,
   },
   itemContainer: {
     flexDirection: "row",

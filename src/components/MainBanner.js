@@ -92,7 +92,7 @@ const MainBanner = ({ navigation }) => (
         keyExtractor={(item) => item.id}
       />
     </View>
-    <View style={{ height: 100 }}></View>
+    <View style={{ height: 150 }}></View>
   </View>
 );
 
