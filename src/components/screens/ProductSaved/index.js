@@ -106,16 +106,16 @@ export default function ProductsSaved() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View
         style={{
           borderWidth: 1,
-          borderBottomColor: "grey",
+          borderBottomColor: "#0047AB",
           borderLeftWidth: 0,
           borderRightWidth: 0,
           borderTopWidth: 0,
-          marginTop: 10,
-          marginBottom: 15,
+          marginTop: 20,
+          marginBottom: 10,
         }}
       >
         <Text
@@ -130,12 +130,13 @@ export default function ProductsSaved() {
           Your saved product
         </Text>
       </View>
-
-      <FlatList
-        data={savedProducts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-      />
-    </SafeAreaView>
+      <SafeAreaView style={styles.listContainer}>
+        <FlatList
+          data={savedProducts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item._id}
+        />
+      </SafeAreaView>
+    </View>
   );
 }

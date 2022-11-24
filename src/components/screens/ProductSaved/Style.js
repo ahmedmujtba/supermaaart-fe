@@ -2,7 +2,11 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginBottom: 50,
+    backgroundColor: "white",
+  },
+  listContainer: {
+    marginBottom: 100,
   },
   itemContainer: {
     flexDirection: "row",
