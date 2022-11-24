@@ -52,4 +52,12 @@ export const styles = StyleSheet.create({
     borderRightColor: "white",
     borderWidth: 1,
   },
+  priceTrendColourDown: {
+    color: "#26A65B",
+    marginTop: 3,
+  },
+  priceTrendColourUp: {
+    color: "#20e33d",
+    marginTop: 3,
+  },
 });

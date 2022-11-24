@@ -181,7 +181,10 @@ export default function ProductDetails({ route, navigation }) {
         {product.name}
       </Text>
       <Text style={[styles.textColor, { marginVertical: 3 }]}>
-        {product.description} &nbsp; &nbsp; &nbsp; &nbsp; £{product.price}
+        {product.description} &nbsp; &nbsp; &nbsp; &nbsp;
+        <Text style={[styles.textColor, { fontWeight: "bold" }]}>
+          Current Price: £{product.price}
+        </Text>
       </Text>
 
       {otherSupermarkets.length > 0 && (
@@ -220,17 +223,36 @@ export default function ProductDetails({ route, navigation }) {
           })}
         </View>
       )}
-      <Text
-        style={[styles.textColor, { marginTop: 10 }]}
-      >{`Price Change (week): ${priceTrend.priceChange}% `}</Text>
-      <Text
-        style={[styles.textColor, { marginTop: 3 }]}
-      >{`Average Price: £${priceTrend.averagePrice}`}</Text>
+
       <View style={styles.addBtn}>
         <Button title="Add" onPress={addItemtoList} />
       </View>
+      <Text
+        style={[
+          styles.textColor,
+          styles.title,
+          { fontWeight: "bold", marginVertical: 5, fontSize: 16 },
+        ]}
+      >
+        Recent Prices:
+      </Text>
+      <Text
+        style={[styles.textColor, { marginTop: 3, fontSize: 15 }]}
+      >{`Price Average (week): £${priceTrend.averagePrice}`}</Text>
+      <Text style={[styles.textColor, { marginTop: 3, fontSize: 15 }]}>
+        {`Price Change (week): `}
+        <Text
+          style={
+            priceTrend.priceChange <= 0
+              ? styles.priceTrendColourUp
+              : styles.priceTrendColourDown
+          }
+        >
+          {priceTrend.priceChange > 0 ? "+" : null}
+          {priceTrend.priceChange}%
+        </Text>
+      </Text>
 
-      <Text style={styles.textColor}>Recent Prices:</Text>
       <View style={styles.chartContainer}>
         <VictoryChart
           domainPadding={{ x: 20 }}
