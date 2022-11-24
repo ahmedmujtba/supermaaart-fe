@@ -107,17 +107,30 @@ export default function ProductsSaved() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text
+      <View
         style={{
-          fontWeight: "600",
-          textAlign: "center",
-          fontSize: 20,
-          color: "#243578",
-          marginBottom: 30,
+          borderWidth: 1,
+          borderBottomColor: "grey",
+          borderLeftWidth: 0,
+          borderRightWidth: 0,
+          borderTopWidth: 0,
+          marginTop: 10,
+          marginBottom: 15,
         }}
       >
-        Your saved product
-      </Text>
+        <Text
+          style={{
+            fontWeight: "600",
+            textAlign: "center",
+            fontSize: 20,
+            color: "#243578",
+            marginBottom: 30,
+          }}
+        >
+          Your saved product
+        </Text>
+      </View>
+
       <FlatList
         data={savedProducts}
         renderItem={renderItem}
