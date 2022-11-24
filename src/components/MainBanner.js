@@ -25,6 +25,7 @@ const MainBanner = ({ navigation }) => (
         justContent: "center",
         alignItems: "center",
         marginTop: 10,
+        borderRadius: 0,
       }}
     >
       <Card.Content>
@@ -45,6 +46,25 @@ const MainBanner = ({ navigation }) => (
         </Button>
       </Card.Actions>
     </Card>
+    <View
+      style={{
+        backgroundColor: "white",
+        height: 80,
+      }}
+    >
+      <Text
+        style={{
+          textAlign: "center",
+          fontStyle: "italic",
+          marginVertical: 20,
+          fontWeight: "600",
+          fontSize: 20,
+          color: "blue",
+        }}
+      >
+        Our Best Deals
+      </Text>
+    </View>
 
     <View style={styles.imgcontainer}>
       <FlatList
@@ -82,6 +102,6 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    marginTop: 130,
+    marginTop: 0,
   },
 });
